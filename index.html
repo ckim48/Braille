@@ -1,248 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>BraillePlay</title>
-  <link rel="icon" href="logo-mini.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <link rel="icon" href="/static/favicon.png" type="image/x-icon">
-  <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
+  <link rel="icon" href="/static/favicon.png" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/static/apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Vendors -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet" />
 
   <style>
-:root{
-  --bg:#ffffff;
-  --text:#0f172a;
-  --muted:#475569;
-  --border:#e2e8f0;
-  --surface:#f8fafc;
-  --surface-2:#eff6ff;
-  --primary:#3b82f6;
-  --primary-600:#2563eb;
-  --primary-300:#60a5fa;
-  --shadow:rgba(2,6,23,.08);
-  --bs-font-sans-serif:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-}
-html{font-size:17px}
-body{font-family:var(--bs-font-sans-serif)!important;color:var(--text);background:#fff;overflow-x:hidden;line-height:1.6}
-img,video{max-width:100%;height:auto}
+    /* ===== Variables ===== */
+    :root{
+      --bg:#ffffff; --text:#0f172a; --muted:#475569; --border:#e2e8f0;
+      --surface:#f8fafc; --surface-2:#eff6ff; --primary:#3b82f6;
+      --primary-600:#2563eb; --primary-300:#60a5fa; --shadow:rgba(2,6,23,.08);
+      --bs-font-sans-serif: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    }
 
-.appname{font-family:'Irish Grover',cursive!important}
+    /* ===== Base / Typography ===== */
+    html{font-size:17px}
+    html,body{font-family:var(--bs-font-sans-serif)!important; line-height:1.6; background:var(--bg); color:var(--text)}
+    img,video{max-width:100%;height:auto}
+    body{overflow-x:hidden}
+    .appname{font-family:'Irish Grover',cursive!important}
 
-.hero{
-  min-height:100vh;
-  background:radial-gradient(1200px 600px at 50% -10%,var(--surface-2) 0%,transparent 60%),linear-gradient(180deg,var(--bg) 0%,var(--surface) 100%);
-  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:88px 20px 44px;border-bottom:1px solid var(--border);position:relative;overflow-x:clip
-}
-.hero h1{font-size:clamp(2.8rem,4.8vw,4.2rem);font-weight:800;margin-bottom:1rem;color:var(--text)}
-.word{display:inline-block;opacity:0;transform:scale(.96);animation:popIn .5s forwards}
-.word:nth-child(1){animation-delay:.05s}
-.word:nth-child(2){animation-delay:.18s}
-.word:nth-child(3){animation-delay:.32s}
-.highlight{color:var(--primary-600)}
-@keyframes popIn{0%{opacity:0;transform:translateY(6px) scale(.96)}100%{opacity:1;transform:translateY(0) scale(1)}}
-.hero p{font-size:1.15rem;color:var(--muted);max-width:720px;margin:0 auto 2rem;opacity:0;animation:fadeUp .7s .35s ease-out forwards}
-@keyframes fadeUp{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
+    /* ===== Headings (scaled) ===== */
+    .hero h1{font-size:clamp(2.6rem,4.6vw,4rem)}
+    .about-section h2,.contact-section h2{font-size:clamp(1.8rem,2.8vw,2.4rem)}
+    .learn-timeline h2,.mstr-title,.m5-title,.features .content h2{font-size:clamp(2rem,3.2vw,2.8rem)}
+    .mode-badge,.mstr-badge,.m5-badge,.contact-badge,.learnv2-eyebrow{
+      font-weight:800; font-size:1.05rem; padding:10px 16px; border-radius:12px; display:inline-block; margin-bottom:12px
+    }
+    .nav-link{font-size:1rem}
 
-.btn-magic,.btn-outline-magic{
-  font-weight:800;text-transform:uppercase;padding:14px 32px;border-radius:12px;border:2px solid transparent;transition:.25s;line-height:1.2
-}
-.btn-magic{background:var(--primary);color:#fff;border-color:var(--primary)}
-.btn-magic:hover{background:var(--primary-600);border-color:var(--primary-600);color:#fff}
-.btn-outline-magic{background:transparent;color:var(--primary-600);border-color:var(--primary-600)}
-.btn-outline-magic:hover{background:var(--primary-600);color:#fff}
-.btn-download{background:var(--primary-600);color:#fff;border-color:var(--primary-600);font-weight:800}
-.btn-download:hover{background:var(--primary);border-color:var(--primary)}
+    /* ===== Buttons ===== */
+    .btn-magic,.btn-outline-magic{
+      font-weight:700; text-transform:uppercase; padding:12px 30px; border-radius:12px; border:2px solid transparent; transition:.25s; line-height:1.2
+    }
+    .btn-magic{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .btn-magic:hover{background:var(--primary-600);border-color:var(--primary-600)}
+    .btn-outline-magic{background:transparent;color:var(--primary-600);border-color:var(--primary-600)}
+    .btn-outline-magic:hover{background:var(--primary-600);color:#fff}
+    .btn-download{background:var(--primary-600);color:#fff;border-color:var(--primary-600);font-weight:700}
+    .btn-download:hover{background:var(--primary);border-color:var(--primary)}
+    .btn-magic.btn-sm,.btn-outline-magic.btn-sm{padding:8px 14px;border-radius:10px}
 
-.comic-bg{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none;background:linear-gradient(135deg,var(--surface) 0%,var(--surface-2) 100%)}
-.blob{position:absolute;width:400px;height:400px;background:radial-gradient(circle at 30% 30%,var(--primary-300) 0%,transparent 70%);opacity:.25;border-radius:50%;animation:blobFloat 18s ease-in-out infinite}
-.blob-1{top:-120px;left:-120px;animation-delay:0s}
-.blob-2{bottom:-140px;right:-100px;background:radial-gradient(circle at 70% 70%,var(--primary-600) 0%,transparent 70%);animation-delay:8s}
-.blob-3{top:40%;left:60%;width:300px;height:300px;background:radial-gradient(circle at 50% 50%,var(--primary) 0%,transparent 70%);animation-delay:4s}
-@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.05)}}
-.particle{position:absolute;width:6px;height:6px;background-color:var(--primary-300);border-radius:50%;opacity:.4;animation:floatParticle 12s linear infinite}
-.particle:nth-child(1){top:20%;left:15%;animation-delay:0s}
-.particle:nth-child(2){top:40%;left:80%;animation-delay:2s}
-.particle:nth-child(3){top:70%;left:25%;animation-delay:4s}
-.particle:nth-child(4){top:50%;left:60%;animation-delay:6s}
-.particle:nth-child(5){top:30%;left:40%;animation-delay:8s}
-@keyframes floatParticle{0%{transform:translateY(0) scale(1);opacity:.4}50%{transform:translateY(-40px) scale(1.1);opacity:.7}100%{transform:translateY(0) scale(1);opacity:.4}}
-.lines{position:absolute;top:0;left:0;width:150%;height:150%;background-image:repeating-linear-gradient(45deg,rgba(37,99,235,.05) 0 2px,transparent 2px 20px);opacity:.08;animation:moveLines 60s linear infinite;transform:rotate(-10deg)}
-@keyframes moveLines{0%{background-position:0 0}100%{background-position:1000px 1000px}}
-.halftone-layer{position:absolute;inset:0;background-image:radial-gradient(rgba(96,165,250,.12) 1px,transparent 1px);background-size:10px 10px;opacity:.15}
-.floating-sparkles{position:absolute;top:-60px;left:0;width:100%;height:100%;pointer-events:none;z-index:0;background-image:radial-gradient(var(--primary-300) 6px,transparent 7px),radial-gradient(var(--primary) 4px,transparent 5px),radial-gradient(var(--primary-600) 5px,transparent 6px);background-size:140px 140px;background-position:5% 10%,40% 70%,80% 20%;animation:floatSparkles 24s linear infinite alternate;opacity:.1}
-@keyframes floatSparkles{0%{background-position:5% 10%,40% 70%,80% 20%}100%{background-position:10% 0%,38% 80%,75% 25%}}
+    /* ===== Top Navbar ===== */
+    .topnav{position:sticky;top:0;z-index:1050;background:#f8fafc;border-bottom:1px solid var(--border);box-shadow:0 6px 16px rgba(2,6,23,.04)}
+    .topnav .nav-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .topnav .brand{text-decoration:none;line-height:1;font-size:1.85rem;color:var(--primary-600)}
+    .nav-menu{display:flex;align-items:center;gap:18px}
+    .nav-link{font-weight:700;letter-spacing:.2px;color:var(--text);text-decoration:none;padding:8px 10px;border-radius:10px;transition:.18s}
+    .nav-link:hover{color:var(--primary-600);background:rgba(37,99,235,.06)}
+    .btn-cta{display:inline-flex;align-items:center;gap:8px;font-weight:800;text-decoration:none;padding:10px 14px;border-radius:12px;background:var(--primary-600);color:#fff;border:1px solid var(--primary-600);transition:.2s}
+    .btn-cta:hover{background:var(--primary);border-color:var(--primary)}
+    .btn-cta:active{transform:translateY(1px)}
+    .nav-toggle{display:none;border:1px solid var(--border);background:#fff;color:var(--text);border-radius:10px;padding:6px 10px;font-size:1.25rem}
+    @media (max-width:991.98px){
+      .nav-toggle{display:inline-flex;align-items:center;justify-content:center}
+      .nav-menu{position:absolute;left:12px;right:12px;top:calc(100% + 8px);display:grid;gap:8px;padding:12px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 44px rgba(2,6,23,.12);transform-origin:top;transform:scaleY(0);opacity:0;pointer-events:none}
+      .nav-menu.is-open{transform:scaleY(1);opacity:1;pointer-events:auto}
+      .nav-link{padding:10px 12px}
+    }
 
-.about-section{background:var(--surface);overflow-x:clip;padding:88px 20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative}
-.about-section h2{font-size:clamp(1.9rem,2.8vw,2.5rem);font-weight:800;color:var(--text)}
-.about-section p{font-size:1.06rem;line-height:1.75;color:var(--muted);text-align:justify}
-.about-frame{width:100%;max-width:540px;aspect-ratio:4/3;border-radius:16px;overflow:hidden;margin:0 auto;box-shadow:0 10px 24px var(--shadow);background:var(--surface);display:flex;align-items:center;justify-content:center}
-.about-frame .about-img{width:100%;height:100%;object-fit:cover;display:block}
-.custom-bullets{list-style:none;padding:0;margin:16px 0}
-.custom-bullets li{position:relative;padding-left:28px;margin-bottom:10px;font-size:1.05rem;line-height:1.6}
-.custom-bullets li::before{content:"";position:absolute;left:0;top:9px;width:10px;height:10px;background-color:#007bff;border-radius:50%}
-.mt-md-6{margin-top:9.5rem}
-.mode-media-frame{width:100%;max-width:850px;aspect-ratio:16/9}
-.mode-media-frame>img,.mode-media-frame>video{width:100%;height:100%;object-fit:cover;display:block}
+    /* ===== Hero ===== */
+    .hero{
+      min-height:100vh;
+      background:radial-gradient(1200px 600px at 50% -10%,var(--surface-2) 0%,transparent 60%),linear-gradient(180deg,var(--bg) 0%,var(--surface) 100%);
+      display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:80px 20px 40px;border-bottom:1px solid var(--border);position:relative;overflow-x:clip
+    }
+    .hero h1{font-weight:800;margin-bottom:1rem;color:var(--text)}
+    .word{display:inline-block;opacity:0;transform:scale(.96);animation:popIn .5s forwards}
+    .word:nth-child(1){animation-delay:.05s}
+    .word:nth-child(2){animation-delay:.18s}
+    .word:nth-child(3){animation-delay:.32s}
+    .highlight{color:var(--primary-600);background:none}
+    @keyframes popIn{0%{opacity:0;transform:translateY(6px) scale(.96)}100%{opacity:1;transform:translateY(0) scale(1)}}
+    .hero p{font-size:1.125rem;color:var(--muted);max-width:680px;margin:0 auto 2rem;opacity:0;animation:fadeUp .7s .35s ease-out forwards}
+    @keyframes fadeUp{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .app-preview-img{border:1px solid var(--border);border-radius:16px;margin-top:48px;max-width:90%;box-shadow:0 12px 28px var(--shadow);opacity:0;animation:fadeUp .7s .5s ease-out forwards}
+    @media (max-width:575.98px){
+      .hero{padding:64px 16px 28px}
+      .hero h1{font-size:clamp(1.8rem,7vw,2.2rem)}
+      .hero p{font-size:1rem;margin-bottom:1.2rem}
+      .app-preview-video{width:100%!important;border-radius:12px!important}
+      .blob,.lines,.halftone-layer{opacity:.06}
+    }
 
-.learn-timeline{
-  background:radial-gradient(1400px 600px at 80% -10%,rgba(37,99,235,.06) 0%,transparent 60%),linear-gradient(180deg,var(--surface) 0%,#fff 100%);
-  padding:120px 20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow-x:clip
-}
-.learn-timeline .mode-badge{display:inline-block;background:rgba(255,255,255,.85);border:1px solid rgba(226,232,240,.9);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:12px;padding:10px 18px;font-weight:800;font-size:1.08rem;margin-bottom:12px}
-.learn-timeline h2{font-weight:800;font-size:clamp(2.1rem,3.2vw,2.8rem);letter-spacing:.2px}
-.ltl{position:relative}
-.ltl::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:3px;border-radius:3px;background:linear-gradient(180deg,rgba(37,99,235,0) 0%,rgba(37,99,235,.25) 20%,rgba(96,165,250,.35) 50%,rgba(37,99,235,.25) 80%,rgba(37,99,235,0) 100%);box-shadow:0 0 0 1px rgba(255,255,255,.35) inset,0 10px 30px rgba(37,99,235,.08)}
-.ltl-item{position:relative;padding:36px 0}
-.ltl-dot{position:absolute;top:8px;left:calc(50% - 18px);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;color:#fff;background:linear-gradient(135deg,var(--primary-600),#60a5fa);box-shadow:0 8px 20px rgba(37,99,235,.25),0 0 0 6px rgba(37,99,235,.12);border:1px solid rgba(255,255,255,.35)}
-.ltl-card{border:1px solid rgba(226,232,240,.7);border-radius:18px;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 12px 28px var(--shadow);padding:16px;transition:.18s}
-.ltl-card:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(2,6,23,.12);border-color:rgba(148,163,184,.6)}
-.ltl-frame{width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid rgba(226,232,240,.8);background:#fff}
-.ltl-img{width:100%;height:100%;object-fit:cover;display:block;opacity:1;transition:opacity .35s ease}
-.ltl-thumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.ltl-thumb{border:1px solid rgba(226,232,240,.9);background:#fff;border-radius:999px;padding:6px 12px;font-size:.95rem;cursor:pointer;transition:border-color .15s ease,box-shadow .15s ease,transform .05s ease,background .15s ease}
-.ltl-thumb:hover{border-color:var(--primary-600);box-shadow:0 2px 10px rgba(2,6,23,.08)}
-.ltl-thumb:active{transform:translateY(1px)}
-.ltl-thumb.is-active{background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(96,165,250,.12));border-color:var(--primary-600);box-shadow:0 0 0 .14rem rgba(37,99,235,.15)}
-.ltl-body{padding:4px 2px}
-.ltl-kicker{font-weight:800;color:#544CA8;font-size:1rem;letter-spacing:.2px}
-.ltl-heading{font-weight:800;color:#000;font-size:1.45rem;margin:.35rem 0 .5rem}
-.ltl-text{color:var(--muted);margin-bottom:.45rem}
-.ltl-list{margin:0;padding-left:1.15rem}
-.ltl-list li{margin:.28rem 0;color:var(--text)}
-.ltl-item.is-on .ltl-heading{color:var(--primary-600)}
+    /* ===== Hero Background FX ===== */
+    .comic-bg{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none;background:linear-gradient(135deg,var(--surface) 0%,var(--surface-2) 100%)}
+    .blob{position:absolute;width:400px;height:400px;background:radial-gradient(circle at 30% 30%,var(--primary-300) 0%,transparent 70%);opacity:.25;border-radius:50%;animation:blobFloat 18s ease-in-out infinite}
+    .blob-1{top:-120px;left:-120px;animation-delay:0s}
+    .blob-2{bottom:-140px;right:-100px;background:radial-gradient(circle at 70% 70%,var(--primary-600) 0%,transparent 70%);animation-delay:8s}
+    .blob-3{top:40%;left:60%;width:300px;height:300px;background:radial-gradient(circle at 50% 50%,var(--primary) 0%,transparent 70%);animation-delay:4s}
+    @keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.05)}}
+    .particle{position:absolute;width:6px;height:6px;background-color:var(--primary-300);border-radius:50%;opacity:.4;animation:floatParticle 12s linear infinite}
+    .particle:nth-child(1){top:20%;left:15%;animation-delay:0s}
+    .particle:nth-child(2){top:40%;left:80%;animation-delay:2s}
+    .particle:nth-child(3){top:70%;left:25%;animation-delay:4s}
+    .particle:nth-child(4){top:50%;left:60%;animation-delay:6s}
+    .particle:nth-child(5){top:30%;left:40%;animation-delay:8s}
+    @keyframes floatParticle{0%{transform:translateY(0) scale(1);opacity:.4}50%{transform:translateY(-40px) scale(1.1);opacity:.7}100%{transform:translateY(0) scale(1);opacity:.4}}
+    .lines{position:absolute;top:0;left:0;width:150%;height:150%;background-image:repeating-linear-gradient(45deg,rgba(37,99,235,.05) 0 2px,transparent 2px 20px);opacity:.08;animation:moveLines 60s linear infinite;transform:rotate(-10deg)}
+    @keyframes moveLines{0%{background-position:0 0}100%{background-position:1000px 1000px}}
+    .halftone-layer{position:absolute;inset:0;background-image:radial-gradient(rgba(96,165,250,.12) 1px,transparent 1px);background-size:10px 10px;opacity:.15}
 
-.modes-stripes{
-  position:relative;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-  background:radial-gradient(1200px 520px at 12% -8%,rgba(37,99,235,.06) 0%,transparent 60%),linear-gradient(180deg,var(--surface) 0%,#fff 100%);
-  padding-top:120px!important;padding-bottom:100px!important;overflow-x:clip
-}
-.mstr-badge{display:inline-block;background:rgba(255,255,255,.9);border:1px solid rgba(226,232,240,.9);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:12px;padding:10px 18px;font-weight:800;font-size:1.08rem;margin-bottom:12px}
-.mstr-title{font-weight:800;font-size:clamp(2.1rem,3.2vw,2.8rem);letter-spacing:.2px;color:var(--text);margin-bottom:.5rem}
-.mstr-sub{color:var(--muted);max-width:720px}
-.mstr-stripe{padding:72px 0;position:relative}
-.mstr-blue{background:radial-gradient(1200px 520px at 0% 0%,rgba(37,99,235,.05) 0%,transparent 60%),linear-gradient(180deg,#fff 0%,var(--surface) 100%)}
-.mstr-sky{background:radial-gradient(1200px 520px at 100% 0%,rgba(96,165,250,.08) 0%,transparent 60%),linear-gradient(180deg,var(--surface) 0%,#fff 100%)}
-.mstr-row{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
-.mstr-row.mstr-reverse{grid-template-columns:.9fr 1.1fr}
-.mstr-eyebrow{display:inline-block;color:var(--primary-600);background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px 14px;font-weight:800;font-size:1rem}
-.mstr-h3{font-weight:800;font-size:clamp(1.5rem,2.4vw,1.9rem);color:var(--text);margin:.6rem 0 .4rem}
-.mstr-body{color:var(--muted);max-width:48ch;margin-bottom:.9rem}
-.mstr-list{margin:0 0 1.1rem 0;padding:0;list-style:none}
-.mstr-list li{position:relative;padding-left:22px;margin:.28rem 0;color:var(--text)}
-.mstr-list li::before{content:"";position:absolute;left:0;top:.6rem;width:8px;height:8px;border-radius:50%;background:var(--primary-600)}
-.mstr-actions{display:flex;gap:12px;flex-wrap:wrap}
-.mstr-media{width:100%}
-.mstr-frame{margin:0;width:100%;aspect-ratio:5/3;border-radius:18px;overflow:hidden;border:1px solid rgba(226,232,240,.9);background:#fff;box-shadow:0 14px 34px var(--shadow)}
-.mstr-frame img{width:100%;height:100%;display:block;object-fit:cover}
+    /* ===== About ===== */
+    .about-section{background:var(--surface);color:var(--text);overflow-x:clip;padding:80px 20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative}
+    .about-section h2{font-weight:800;color:var(--text)}
+    .about-section p{font-size:1.05rem;line-height:1.75;color:var(--muted);text-align:justify}
+    .about-frame{width:100%;max-width:540px;aspect-ratio:4/3;border-radius:16px;overflow:hidden;margin:0 auto;box-shadow:0 10px 24px var(--shadow);background:var(--surface);display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
+    .about-img{width:100%;height:100%;object-fit:cover;display:block}
+    .custom-bullets{list-style:none;padding:0;margin:16px 0}
+    .custom-bullets li{position:relative;padding-left:28px;margin-bottom:12px;font-size:1.05rem;line-height:1.6}
+    .custom-bullets li::before{content:"";position:absolute;left:0;top:9px;width:10px;height:10px;background-color:#007bff;border-radius:50%}
+    @media (min-width:768px){.mt-md-6{margin-top:9.5rem}}
+    .floating-sparkles{position:absolute;top:-60px;left:0;width:100%;height:100%;pointer-events:none;z-index:0;background-image:radial-gradient(var(--primary-300) 6px,transparent 7px),radial-gradient(var(--primary) 4px,transparent 5px),radial-gradient(var(--primary-600) 5px,transparent 6px);background-size:140px 140px;background-position:5% 10%,40% 70%,80% 20%;animation:floatSparkles 24s linear infinite alternate;opacity:.10}
+    @keyframes floatSparkles{0%{background-position:5% 10%,40% 70%,80% 20%}100%{background-position:10% 0%,38% 80%,75% 25%}}
+    @media (max-width:575.98px){
+      .about-section{padding:56px 16px}
+      .about-section h2{font-size:1.4rem}
+      .about-section p{font-size:1rem;text-align:left}
+      .about-frame{max-width:100%;aspect-ratio:16/9}
+      .custom-bullets li{margin-bottom:8px}
+    }
 
-.features{padding-top:120px;padding-bottom:120px}
-.features .content h2{font-weight:800;color:var(--text)}
-.features .content p{text-align:justify;color:var(--muted)}
-.features .icon-box{background:#fff;border:1px solid var(--border);box-shadow:0 12px 28px var(--shadow);border-radius:12px;padding:50px 40px;transition:.3s}
-.features .icon-box i{width:80px;height:80px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:32px;line-height:0;transition:.4s;background-color:rgba(37,99,235,.10);color:var(--primary-600)}
-.features .icon-box h3{margin-bottom:10px;color:#111827;font-size:24px;font-weight:800}
-.features .icon-box p{color:#505050;margin-bottom:0}
+    /* ===== Features ===== */
+    .features{padding-top:110px;padding-bottom:110px}
+    .features .content h3{font-size:16px;font-weight:500;line-height:19px;padding:10px 20px;background:color-mix(in srgb, darkgray, transparent 85%);color:black;border-radius:7px;display:inline-block}
+    .features .content h2{color:var(--text);font-weight:700}
+    .features .content p{text-align:justify;color:var(--muted)}
+    .features .content p:last-child{margin-bottom:0}
+    .features .icon-box{background:#fff;border:1px solid var(--border);box-shadow:0 12px 28px var(--shadow);border-radius:12px;padding:50px 40px;transition:.3s}
+    .features .icon-box i{width:80px;height:80px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:32px;background-color:rgba(37,99,235,.10);color:var(--primary-600);transition:.4s}
+    .features .icon-box h3{margin-bottom:10px;color:black;font-size:24px;font-weight:700}
+    .features .icon-box p{color:#505050;margin-bottom:0}
+    .features .icon-boxes .col-md-6:nth-child(2) .icon-box,
+    .features .icon-boxes .col-md-6:nth-child(4) .icon-box{margin-top:-40px}
+    @media (max-width:768px){
+      .features .icon-boxes .col-md-6:nth-child(2) .icon-box,
+      .features .icon-boxes .col-md-6:nth-child(4) .icon-box{margin-top:0}
+    }
 
-.contact-section{background:var(--surface);padding:88px 20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;overflow-x:clip}
-.contact-section h2{font-size:clamp(1.9rem,2.8vw,2.5rem);font-weight:800;color:var(--text)}
-.contact-badge{background:#fff;color:var(--text);border:1px solid var(--border);border-radius:12px;padding:10px 18px;font-size:1.08rem;font-weight:800;display:inline-block}
-.contact-card{border:1px solid var(--border);border-radius:16px;background:#fff;box-shadow:0 4px 12px var(--shadow)}
-.comic-input{border:1px solid var(--border);border-radius:12px;background:#fff;color:var(--text);font-size:1rem}
-.comic-input:focus{border-color:var(--primary);box-shadow:0 0 0 .2rem rgba(59,130,246,.15)}
-.comic-textarea{min-height:140px;resize:vertical}
-.comic-btn{font-weight:800;border:2px solid var(--primary-600);background:var(--primary-600);color:#fff;transition:background-color .25s ease,border-color .25s ease,transform .05s ease;border-radius:999px;padding:.7rem 1.25rem}
-.comic-btn:hover{background:var(--primary);border-color:var(--primary)}
-.comic-btn:active{transform:translateY(1px)}
-.form-alert{display:none;border-radius:12px;padding:.85rem 1rem;font-size:.95rem}
-.form-alert.success{background:#ecfdf5;border:1px solid #10b981;color:#065f46;display:none}
-.form-alert.error{background:#fff7ed;border:1px solid #f97316;color:#7c2d12;display:none}
-.comic-input:disabled,.comic-textarea:disabled,.form-check-input:disabled{background-color:#f1f5f9;opacity:1;cursor:not-allowed}
+    /* ===== Learning Timeline ===== */
+    .learn-timeline{background:radial-gradient(1400px 600px at 80% -10%,rgba(37,99,235,.06) 0%,transparent 60%),linear-gradient(180deg,var(--surface) 0%,#fff 100%);padding:110px 20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow-x:clip}
+    .learn-timeline .mode-badge{background:rgba(255,255,255,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(226,232,240,.7)}
+    .ltl{position:relative}
+    .ltl::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:3px;border-radius:3px;background:linear-gradient(180deg,rgba(37,99,235,0) 0%,rgba(37,99,235,.25) 20%,rgba(96,165,250,.35) 50%,rgba(37,99,235,.25) 80%,rgba(37,99,235,0) 100%);box-shadow:0 0 0 1px rgba(255,255,255,.35) inset,0 10px 30px rgba(37,99,235,.08)}
+    @media (max-width:991.98px){.ltl::before{display:none}}
+    .ltl-item{position:relative;padding:36px 0}
+    @media (min-width:992px){.ltl-item.ltl-alt .ltl-row{flex-direction:row-reverse}}
+    .ltl-dot{position:absolute;top:8px;left:calc(50% - 18px);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;color:#fff;background:linear-gradient(135deg,var(--primary-600),#60a5fa);box-shadow:0 8px 20px rgba(37,99,235,.25),0 0 0 6px rgba(37,99,235,.12);border:1px solid rgba(255,255,255,.35)}
+    @media (max-width:991.98px){.ltl-dot{left:14px;display:none}}
+    .ltl-card{border:1px solid rgba(226,232,240,.7);border-radius:18px;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 12px 28px var(--shadow);padding:16px;transition:.18s}
+    .ltl-card:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(2,6,23,.12);border-color:rgba(148,163,184,.6)}
+    .ltl-frame{width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid rgba(226,232,240,.8);background:#fff}
+    .ltl-img{width:100%;height:100%;object-fit:cover;display:block;opacity:1;transition:opacity .35s ease}
+    @media (prefers-reduced-motion:reduce){.ltl-img{transition:none!important}}
+    .ltl-thumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .ltl-thumb{border:1px solid rgba(226,232,240,.9);background:#fff;border-radius:999px;padding:6px 12px;font-size:.9rem;cursor:pointer;transition:.15s}
+    .ltl-thumb:hover{border-color:var(--primary-600);box-shadow:0 2px 10px rgba(2,6,23,.08)}
+    .ltl-thumb:active{transform:translateY(1px)}
+    .ltl-thumb.is-active{background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(96,165,250,.12));border-color:var(--primary-600);box-shadow:0 0 0 .14rem rgba(37,99,235,.15)}
+    .ltl-body{padding:4px 2px}
+    .ltl-kicker{font-weight:800;color:#544CA8;font-size:.95rem;letter-spacing:.2px}
+    .ltl-heading{font-weight:800;color:black!important;font-size:1.35rem;margin:.35rem 0 .5rem}
+    .ltl-text{color:var(--muted);margin-bottom:.45rem}
+    .ltl-list{margin:0;padding-left:1.15rem}
+    .ltl-list li{margin:.28rem 0;color:var(--text)}
+    .ltl-item.is-on .ltl-heading{color:var(--primary-600)}
+    @media (max-width:991.98px){
+      .ltl-item{padding:24px 0}
+      .ltl-frame{aspect-ratio:16/9}
+      .ltl-body{padding:2px 0}
+    }
+    @media (max-width:575.98px){
+      .learn-timeline{padding:72px 16px}
+      .learn-timeline h2{font-size:1.6rem}
+      .ltl::before{left:24px}
+      .ltl-dot{left:8px;transform:none}
+      .ltl-thumbs{gap:8px}
+      .ltl-thumb{padding:6px 10px;font-size:.85rem}
+      .ltl-list{padding-left:1rem}
+      .ltl-list li{margin:.22rem 0}
+    }
 
-.topnav{position:sticky;top:0;z-index:1050;background:#f8fafc;border-bottom:1px solid var(--border);box-shadow:0 6px 16px rgba(2,6,23,.04)}
-.topnav .nav-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-.topnav .brand{text-decoration:none;line-height:1;font-size:2rem;color:var(--primary-600)}
-.nav-menu{display:flex;align-items:center;gap:18px}
-.nav-link{font-weight:800;letter-spacing:.2px;color:var(--text);text-decoration:none;padding:10px 12px;border-radius:10px;transition:background-color .18s ease,color .18s ease}
-.nav-link:hover{color:var(--primary-600);background:rgba(37,99,235,.06)}
-.btn-cta{display:inline-flex;align-items:center;gap:8px;font-weight:800;text-decoration:none;padding:12px 16px;border-radius:12px;background:var(--primary-600);color:#fff;border:1px solid var(--primary-600);transition:background-color .2s ease,border-color .2s ease,transform .02s ease}
-.btn-cta:hover{background:var(--primary);border-color:var(--primary)}
-.btn-cta:active{transform:translateY(1px)}
-.nav-toggle{display:none;border:1px solid var(--border);background:#fff;color:var(--text);border-radius:10px;padding:6px 10px;font-size:1.25rem}
+    /* ===== Modes (Stripes) ===== */
+    .modes-stripes{position:relative;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:radial-gradient(1200px 520px at 12% -8%,rgba(37,99,235,.06) 0%,transparent 60%),linear-gradient(180deg,var(--surface) 0%,#fff 100%);overflow-x:clip;padding-top:110px!important;padding-bottom:100px!important}
+    .mstr-badge{display:inline-block;background:rgba(255,255,255,.85);border:1px solid rgba(226,232,240,.9);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:12px;padding:6px 12px}
+    .mstr-title{font-weight:800;letter-spacing:.2px;color:var(--text);margin-bottom:.4rem}
+    .mstr-sub{color:var(--muted);max-width:720px}
+    .mstr-stripe{padding:56px 0;position:relative;border-top:1px solid var(--border)}
+    .mstr-blue{background:radial-gradient(1200px 520px at 0% 0%,rgba(37,99,235,.05) 0%,transparent 60%),linear-gradient(180deg,#fff 0%,var(--surface) 100%)}
+    .mstr-sky{background:radial-gradient(1200px 520px at 100% 0%,rgba(96,165,250,.08) 0%,transparent 60%),linear-gradient(180deg,var(--surface) 0%,#fff 100%)}
+    .mstr-eyebrow{display:inline-block;font-weight:800;letter-spacing:.2px;color:var(--primary-600);background:#fff;border:1px solid var(--border);border-radius:10px;padding:6px 10px;font-size:.9rem}
+    .mstr-h3{font-weight:800;font-size:clamp(1.4rem,2.2vw,1.8rem);color:var(--text);margin:.6rem 0 .4rem}
+    .mstr-body{color:var(--muted);max-width:48ch;margin-bottom:.8rem}
+    .mstr-list{margin:0 0 .9rem 0;padding:0;list-style:none}
+    .mstr-list li{position:relative;padding-left:22px;margin:.35rem 0;color:var(--text)}
+    .mstr-list li::before{content:"";position:absolute;left:0;top:.6rem;width:8px;height:8px;border-radius:50%;background:var(--primary-600)}
+    .mstr-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .mstr-frame{margin:0;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid rgba(226,232,240,.9);background:#fff;box-shadow:0 10px 24px var(--shadow)}
+    #modes .container:first-child{max-width:1120px}
+    #modes .mstr-title{margin-bottom:.6rem}
+    #modes .mstr-sub{margin:0 auto 2rem;max-width:720px}
+    #modes .mstr-stripe{padding:72px 0}
+    #modes .mstr-stripe + .mstr-stripe{border-top:1px solid var(--border)}
+    #modes .mstr-row{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+    #modes .mstr-row.mstr-reverse{grid-template-columns:.9fr 1.1fr}
+    #modes .mstr-text{max-width:56ch}
+    #modes .mstr-frame{aspect-ratio:5/3;border-radius:18px;box-shadow:0 14px 34px var(--shadow)}
+    #modes .mstr-list{margin-top:.6rem;margin-bottom:1.1rem}
+    #modes .mstr-list li{margin:.28rem 0}
+    #modes .mstr-actions{gap:12px}
+    #modes .mstr-actions .btn{padding-inline:16px}
+    @media (max-width:1199.98px){
+      #modes .mstr-row{gap:36px}
+      #modes .mstr-frame{aspect-ratio:16/9}
+    }
+    @media (max-width:991.98px){
+      .modes-stripes{padding-top:72px!important;padding-bottom:72px!important}
+      #modes .mstr-row,#modes .mstr-row.mstr-reverse{grid-template-columns:1fr;gap:20px}
+      #modes .mstr-text{max-width:100%}
+      #modes .mstr-frame{aspect-ratio:16/9;border-radius:14px}
+      #modes .mstr-title{font-size:1.6rem}
+      #modes .mstr-sub{margin:0 auto 1.2rem}
+      .mstr-actions{gap:10px}
+      .mstr-actions .btn{flex:1 1 auto;min-width:140px}
+      #modes .mstr-stripe{padding:56px 0}
+    }
+    @media (max-width:575.98px){
+      .mstr-h3{font-size:1.25rem;margin-bottom:.35rem}
+      .mstr-body{font-size:.98rem;margin-bottom:.7rem}
+      #modes .mstr-stripe{padding:40px 0}
+      #modes .mstr-actions{gap:10px}
+    }
+    .mode-media-frame{width:100%;max-width:850px;aspect-ratio:16/9}
+    .mode-media-frame>img,.mode-media-frame>video{width:100%;height:100%;object-fit:cover;display:block}
+    @media (min-width:992px){.ms-lg-auto{margin-left:auto!important}}
 
-@media (max-width:1199.98px){
-  #modes .mstr-frame{aspect-ratio:16/9}
-}
-@media (max-width:991.98px){
-  .nav-toggle{display:inline-flex;align-items:center;justify-content:center}
-  .nav-menu{position:absolute;left:12px;right:12px;top:calc(100% + 8px);display:grid;gap:8px;padding:12px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 44px rgba(2,6,23,.12);transform-origin:top;transform:scaleY(0);opacity:0;pointer-events:none}
-  .nav-menu.is-open{transform:scaleY(1);opacity:1;pointer-events:auto}
-  .ltl::before{display:none}
-  .ltl-dot{display:none}
-  .ltl-item{padding:24px 0}
-  .ltl-frame{aspect-ratio:16/9}
-  .ltl-body{padding:2px 0}
-  .modes-stripes{padding-top:80px!important;padding-bottom:80px!important}
-  .mstr-row,.mstr-row.mstr-reverse{grid-template-columns:1fr;gap:22px}
-  #modes .mstr-row,#modes .mstr-row.mstr-reverse{grid-template-columns:1fr;gap:22px}
-  #modes .mstr-stripe{padding:56px 0}
-}
-@media (max-width:575.98px){
-  .hero{padding:64px 16px 28px}
-  .hero h1{font-size:clamp(2.1rem,7vw,2.6rem)}
-  .hero p{font-size:1.02rem;margin-bottom:1.2rem}
-  .app-preview-video{width:100%!important;border-radius:12px!important}
-  .blob,.lines,.halftone-layer{opacity:.06}
-  .about-section{padding:56px 16px}
-  .about-section h2{font-size:1.6rem}
-  .about-section p{font-size:1rem;text-align:left}
-  .about-frame{max-width:100%;aspect-ratio:16/9}
-  .custom-bullets li{margin-bottom:8px}
-  .learn-timeline{padding:72px 16px}
-  .learn-timeline h2{font-size:1.8rem}
-  .ltl-thumbs{gap:8px}
-  .ltl-thumb{padding:6px 10px;font-size:.88rem}
-  .ltl-list{padding-left:1rem}
-  .ltl-list li{margin:.22rem 0}
-  .mstr-h3{font-size:1.35rem;margin-bottom:.35rem}
-  .mstr-body{font-size:.98rem;margin-bottom:.7rem}
-  #modes .mstr-stripe{padding:40px 0}
-  .contact-section{padding:64px 16px}
-  .contact-card{padding:18px!important}
-  .comic-textarea{min-height:120px}
-  .btn-magic,.btn-outline-magic{padding:10px 18px;font-size:.95rem;border-radius:10px}
-  .hero .d-flex.gap-3{gap:.6rem!important}
-}
+    /* ===== Contact ===== */
+    .contact-section{background:var(--surface);padding:80px 20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;overflow-x:clip}
+    .contact-section h2{font-weight:800;color:var(--text)}
+    .contact-badge{background:#fff;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:6px 12px;font-size:.95rem}
+    .contact-card{border:1px solid var(--border);border-radius:16px;background:#fff;box-shadow:0 4px 12px var(--shadow)}
+    .comic-input{border:1px solid var(--border);border-radius:12px;background:#fff;color:var(--text);font-size:1rem}
+    .comic-input:focus{border-color:var(--primary);box-shadow:0 0 0 .2rem rgba(59,130,246,.15)}
+    .comic-textarea{min-height:140px;resize:vertical}
+    .comic-btn{font-family:'Irish Grover',cursive;font-weight:700;border:2px solid var(--primary-600);background:var(--primary-600);color:#fff;transition:.25s;border-radius:999px;padding:.6rem 1.2rem}
+    .comic-btn:hover{background:var(--primary);border-color:var(--primary)}
+    .comic-btn:active{transform:translateY(1px)}
+    .form-alert{display:none;border-radius:12px;padding:.85rem 1rem;font-size:.95rem}
+    .form-alert.success{background:#ecfdf5;border:1px solid #10b981;color:#065f46}
+    .form-alert.error{background:#fff7ed;border:1px solid #f97316;color:#7c2d12}
+    @media (max-width:575.98px){
+      .contact-section{padding:64px 16px}
+      .contact-card{padding:18px!important}
+      .comic-textarea{min-height:120px}
+    }
+    .comic-input:disabled,.comic-textarea:disabled,.form-check-input:disabled{background-color:#f1f5f9;opacity:1;cursor:not-allowed}
 
-@media (prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
-}
+    /* ===== Small Tweaks ===== */
+    .mode-badge,.mstr-badge,.m5-badge,.contact-badge,.learnv2-eyebrow{font-family:var(--bs-font-sans-serif)!important}
+    @media (max-width:575.98px){
+      .btn-magic,.btn-outline-magic{padding:9px 18px;font-size:.9rem;border-radius:10px}
+      .hero .d-flex.gap-3{gap:.6rem!important}
+    }
 
-
+    /* ===== Reduced Motion ===== */
+    @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
   </style>
 </head>
-  <body>
+<body>
+
+  <!-- ===== Hero ===== -->
   <section class="hero position-relative overflow-hidden">
     <div class="comic-bg">
       <div class="blob blob-1"></div>
       <div class="blob blob-2"></div>
       <div class="blob blob-3"></div>
-
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
       <div class="lines"></div>
-
       <div class="halftone-layer"></div>
     </div>
 
@@ -251,72 +294,46 @@ img,video{max-width:100%;height:auto}
       <span class="word highlight appname">Braille<span style="color:black;">Play</span></span>
     </h1>
 
-    <p>
-      BraillePlay makes learning Braille fun and accessible with interactive devices, web lessons, 
-      and engaging games that inspire empathy and understanding.
-    </p>
+    <p>BraillePlay makes learning Braille fun and accessible with interactive devices, web lessons, and engaging games that inspire empathy and understanding.</p>
 
-    <div class="d-flex gap-3 flex-wrap justify-content-center mb-4" data-aos="fade-up" >
+    <div class="d-flex gap-3 flex-wrap justify-content-center mb-4" data-aos="fade-up">
       <a href="#about" class="btn btn-magic">Learn More</a>
-
       <a href="https://braille-app-19a76.web.app/" class="btn btn-outline-magic">Start Learning</a>
     </div>
 
-  <video
-    class="app-preview-video"
-    style="width:50%; z-index: 99999; border-radius: 8px;"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="metadata"  data-aos="fade-up" 
-  >
-    <source src="video/hero2.mp4" type="video/mp4">
-  </video>
+    <video class="app-preview-video" style="width:50%;z-index:1;border-radius:8px" autoplay muted loop playsinline preload="metadata" data-aos="fade-up">
+      <source src="video/hero2.mp4" type="video/mp4" />
+    </video>
   </section>
-<!-- ===== Modern Navbar (Clean V3) ===== -->
-<!-- ===== Top Navbar (Minimal) ===== -->
-<header id="siteNav" class="topnav" role="banner">
-  <div class="container nav-row">
-    <a class="brand appname ms-3 ms-md-0" href="#top">Braille<span style="color:black;">Play</span></a>
 
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation">
-      <i class="bi bi-list"></i>
-    </button>
+  <!-- ===== Navbar ===== -->
+  <header id="siteNav" class="topnav" role="banner">
+    <div class="container nav-row">
+      <a class="brand appname ms-3 ms-md-0" href="#top">Braille<span style="color:black;">Play</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation"><i class="bi bi-list"></i></button>
+      <nav id="navMenu" class="nav-menu" role="navigation" aria-label="Primary">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#learning" class="nav-link">Features</a>
+        <a href="#demo" class="nav-link">Demo</a>
+        <a href="https://braille-app-19a76.web.app/" class="btn-cta"><i class="bi bi-play-circle me-1"></i> Start Braille</a>
+      </nav>
+    </div>
+  </header>
 
-    <nav id="navMenu" class="nav-menu" role="navigation" aria-label="Primary">
-      <a href="#about"   class="nav-link">About</a>
-      <a href="#learning" class="nav-link">Features</a>
-      <a href="#demo" class="nav-link">Demo</a>
-      <a href="https://braille-app-19a76.web.app/" class="btn-cta">
-        <i class="bi bi-play-circle me-1"></i> Start Braille
-      </a>
-    </nav>
-  </div>
-</header>
-
-
-
-<section id="about" class="about-section">
+  <!-- ===== About ===== -->
+  <section id="about" class="about-section">
     <div class="floating-sparkles"></div>
-
-  <div class="container">
-  
+    <div class="container">
       <div class="row">
         <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
           <div class="about-frame">
-            <img src="img/device.png" alt="Braille Input Device" class="about-img">
+            <img src="img/device.png" alt="Braille Input Device" class="about-img" />
           </div>
         </div>
         <div class="col-md-6 px-md-5" data-aos="fade-left" data-aos-duration="1000">
-<h2 class="fw-bold mt-4 mt-md-0">
-  Introducing <span class="appname"><span style="color:#2563eb;">Braille</span><span style="color:black;">Play</span></span>
-</h2>
+          <h2 class="fw-bold mt-4 mt-md-0">Introducing <span class="appname"><span style="color:#2563eb;">Braille</span><span style="color:black;">Play</span></span></h2>
           <p>
-            This project focuses on creating a <strong>2x4 Braille input device</strong> and an 
-            interactive web platform to make Braille learning accessible and engaging 
-            for non-disabled students. By combining tactile hardware with digital content, 
-            it bridges the gap between visually impaired and sighted individuals.
+            This project focuses on creating a <strong>2×4 Braille input device</strong> and an interactive web platform to make Braille learning accessible and engaging for non-disabled students. By combining tactile hardware with digital content, it bridges the gap between visually impaired and sighted individuals.
           </p>
           <ul class="custom-bullets">
             <li>Hands-on practice with a custom Braille input device.</li>
@@ -327,626 +344,456 @@ img,video{max-width:100%;height:auto}
         </div>
       </div>
 
-      <!-- Why It Matters (Alternate order on desktop) -->
       <div class="row align-items-center mt-md-6">
-        <!-- Image first on mobile, second on desktop -->
         <div class="col-md-6 order-md-2" data-aos="fade-left" data-aos-duration="1000">
           <div class="about-frame">
-            <img src="img/about2.jpg" alt="Braille Learning Platform" class="about-img">
+            <img src="img/about2.jpg" alt="Braille Learning Platform" class="about-img" />
           </div>
         </div>
-
-        <!-- Text second on mobile, first on desktop -->
         <div class="col-md-6 order-md-1" data-aos="fade-right" data-aos-duration="1000">
           <h2 class="fw-bold mt-4 mt-md-0">Why It Matters</h2>
-          <p>
-            Braille is an essential communication tool for visually impaired individuals, 
-            yet it remains unfamiliar to most sighted people. This lack of understanding 
-            creates barriers to inclusion and accessibility.
-          </p>
+          <p>Braille is an essential communication tool for visually impaired individuals, yet it remains unfamiliar to most sighted people. This lack of understanding creates barriers to inclusion and accessibility.</p>
           <ul class="custom-bullets">
             <li>Promotes awareness and empathy through hands-on learning.</li>
             <li>Builds a bridge between sighted and visually impaired communities.</li>
             <li>Encourages inclusive education with fun and interactive tools.</li>
           </ul>
-          <p>
-            By engaging students in a meaningful way, this project helps foster a more 
-            inclusive society where everyone can appreciate the importance of accessible communication.
-          </p>
+          <p>By engaging students in a meaningful way, this project helps foster a more inclusive society where everyone can appreciate the importance of accessible communication.</p>
         </div>
       </div>
+    </div>
+  </section>
 
-
-  </div>
-</section>
-  <section id="features" class="features section" style="background-color: var(--surface);">
-  <div class="container" data-aos="fade-up">
-    <div class="row align-items-xl-center gy-5">
-      <div class="col-lg-5 content px-md-5">
-        <!-- Brand name instead of logo image -->
-        <div class="appname mb-2 " style="font-size:3.5rem; line-height:.92; color:var(--primary-600);">
-          Braille<span class="text-dark">Play</span>
+  <!-- ===== Features ===== -->
+  <section id="features" class="features section" style="background-color:var(--surface)">
+    <div class="container" data-aos="fade-up">
+      <div class="row align-items-xl-center gy-5">
+        <div class="col-lg-5 content px-md-5">
+          <div class="appname mb-2" style="font-size:3.5rem;line-height:.92;color:var(--primary-600)">Braille<span class="text-dark">Play</span></div>
+          <br />
+          <h2>Turn Touch Into Language</h2>
+          <p>BraillePlay makes Braille feel natural—combining a tactile 2×4 input device, guided web lessons, and playful challenges so progress feels fast and fun.</p>
         </div>
-        <br>
-        <h2>Turn Touch Into Language</h2>
-        <p>
-          BraillePlay makes Braille feel natural—combining a tactile 2×4 input device,
-          guided web lessons, and playful challenges so progress feels fast and fun.
-        </p>
-      </div>
-
-      <div class="col-lg-7 px-md-5">
-        <div class="row gy-4 icon-boxes">
-          <div class="col-md-6" data-aos="fade-up">
-            <div class="icon-box">
-              <i class="bi bi-mouse"></i>
-              <h3>Interactive Device</h3>
-              <p>Practice real Braille input on a custom 2×4 tactile layout.</p>
+        <div class="col-lg-7 px-md-5">
+          <div class="row gy-4 icon-boxes">
+            <div class="col-md-6" data-aos="fade-up">
+              <div class="icon-box">
+                <i class="bi bi-mouse"></i>
+                <h3>Interactive Device</h3>
+                <p>Practice real Braille input on a custom 2×4 tactile layout.</p>
+              </div>
             </div>
-          </div>
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon-box">
-              <i class="bi bi-journal-text"></i>
-              <h3>Guided Lessons</h3>
-              <p>From alphabet & numbers to punctuation and real sentences.</p>
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon-box">
+                <i class="bi bi-journal-text"></i>
+                <h3>Guided Lessons</h3>
+                <p>From alphabet & numbers to punctuation and real sentences.</p>
+              </div>
             </div>
-          </div>
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon-box">
-              <i class="bi bi-controller"></i>
-              <h3>Engaging Games</h3>
-              <p>Mini-games and sprints that build recognition and speed.</p>
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+              <div class="icon-box">
+                <i class="bi bi-controller"></i>
+                <h3>Engaging Games</h3>
+                <p>Mini-games and sprints that build recognition and speed.</p>
+              </div>
             </div>
-          </div>
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="icon-box">
-              <i class="bi bi-graph-up"></i>
-              <h3>Progress Tracking</h3>
-              <p>See accuracy, streaks, and milestones at a glance.</p>
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon-box">
+                <i class="bi bi-graph-up"></i>
+                <h3>Progress Tracking</h3>
+                <p>See accuracy, streaks, and milestones at a glance.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
-
-
-
-
-
-<section id="learning" class="learn-timeline">
-  <div class="container">
-    <div class="text-center mb-4" data-aos="fade-down">
-      <span class="mode-badge"><i class="bi bi-journal-text me-1"></i> Braille Learning </span>
-    </div>
-
-    <h2 class="text-center fw-bold mb-4" data-aos="fade-up" data-aos-delay="50">
-      Learn Braille—Step by Step
-    </h2>
-
-    <p class="text-muted mx-auto mb-5 text-center" style="max-width:760px;"
-       data-aos="fade-up" data-aos-delay="120">
-      Follow a guided path—from the Braille alphabet to real-world writing—then lock it in with practical exercises and puzzles.
-    </p>
-
-    <div class="ltl"><!-- timeline rail -->
-
-      <!-- STEP 1 -->
-      <article class="ltl-item" data-default="/static/learning/basics-1.jpg" data-aos="fade-up" data-aos-delay="80">
-        <div class="ltl-dot" data-aos="zoom-in" data-aos-delay="0">1</div>
-        <div class="row align-items-center g-4 ltl-row">
-          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="120">
-            <div class="ltl-card">
-              <div class="ltl-frame" data-aos="fade-up" data-aos-delay="180">
-                <img class="ltl-img" src="img/learning/learn1.gif" alt="Braille basics preview">
-              </div>
-              <div class="ltl-thumbs" data-aos="fade-up" data-aos-delay="220">
-                <button type="button" class="ltl-thumb is-active" data-src="img/learning/learning1.gif">Alphabet</button>
-                <button type="button" class="ltl-thumb" data-src="img/learning/learning2.gif">Numbers</button>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6" data-aos="fade-left" data-aos-delay="160">
-            <div class="ltl-body ms-lg-4">
-              <div class="ltl-kicker"><i class="bi bi-lightbulb"></i> Basics</div>
-              <h3 class="ltl-heading"><span class="mstr-h3">Start with the building blocks</span></h3>
-              <p class="ltl-text">
-                Learn the Braille alphabet, numbers, and punctuation with tactile mapping and visual guidance.
-              </p>
-              <ul class="ltl-list" data-aos="fade-up" data-aos-delay="220">
-                <li><strong>Alphabet:</strong> Cell patterns & quick recognition.</li>
-                <li><strong>Numbers & Punctuation:</strong> Symbols for everyday reading.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- STEP 2 -->
-      <article class="ltl-item ltl-alt" data-default="/static/learning/exercises-1.jpg" data-aos="fade-up" data-aos-delay="120">
-        <div class="ltl-dot" data-aos="zoom-in" data-aos-delay="0">2</div>
-        <div class="row align-items-center g-4 ltl-row">
-          <div class="col-lg-6" data-aos="fade-left" data-aos-delay="160">
-            <div class="ltl-card">
-              <div class="ltl-frame" data-aos="fade-up" data-aos-delay="200">
-                <img class="ltl-img" src="/static/learning/exercises-1.jpg" alt="Practice & puzzles preview">
-              </div>
-              <div class="ltl-thumbs" data-aos="fade-up" data-aos-delay="240">
-                <button type="button" class="ltl-thumb is-active" data-src="img/learning/learning4.gif">Math</button>
-                <button type="button" class="ltl-thumb" data-src="img/learning/learning3.gif">Image</button>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
-            <div class="ltl-body">
-              <div class="ltl-kicker"><i class="bi bi-controller"></i> Practice & Problem Solving</div>
-              <h3 class="ltl-heading"><span class="mstr-h3">Make it stick with practice</span></h3>
-              <p class="ltl-text">Hands-on tasks that reinforce skills and build confidence—fun and effective.</p>
-              <ul class="ltl-list" data-aos="fade-up" data-aos-delay="260">
-                <li><strong>Math:</strong> Solve arithmetic using Braille numerals.</li>
-                <li><strong>Word Input:</strong> Type words & sentences on the 2×4 device.</li>
-                <li><strong>Puzzles:</strong> Apply knowledge to solve clever challenges.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </article>
-
-    </div><!-- /.ltl -->
-  </div>
-</section>
-
-<section id="modes" class="modes-stripes">
-  <div class="container">
-    <div class="text-center mb-3" data-aos="fade-down" data-aos-duration="700">
-      <span class="mstr-badge"><i class="bi bi-controller me-1"></i> Game Modes</span>
-    </div>
-
-    <h2 class="mstr-title text-center" data-aos="fade-up" data-aos-duration="800">
-      Play to Learn — Fast, Fun, Focused
-    </h2>
-    <p class="mstr-sub mx-auto text-center" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
-      Build speed and accuracy, test recognition, and cement skills with focused challenges.
-    </p>
-  </div>
-
-  <!-- Stripe 1 -->
-  <!-- Stripe 1 -->
-  <div class="mstr-stripe mstr-blue" data-aos="fade-up" data-aos-duration="800">
+  <!-- ===== Learning Timeline ===== -->
+  <section id="learning" class="learn-timeline">
     <div class="container">
-      <div class="row align-items-center">
-        <!-- Text (left) -->
-        <div class="col-lg-6">
-          <div class="mstr-eyebrow">Speed • Accuracy</div>
-          <h3 class="mstr-h3">Typing Game</h3>
-          <p class="mstr-body">
-            Enter Braille cells quickly and precisely on the 2×4 device. Adaptive levels track your WPM and accuracy as you improve.
-          </p>
-          <ul class="mstr-list">
-            <li>WPM targets with gradual difficulty ramps</li>
-            <li>Immediate feedback on errors and timing</li>
-            <li>Session summaries and personal bests</li>
-          </ul>
-          <div class="mstr-actions">
-            <a href="https://braille-app-19a76.web.app/" class="btn btn-magic btn-sm">Play Typing</a>
-            <a href="https://braille-app-19a76.web.app/" class="btn btn-outline-magic btn-sm">View Lessons</a>
-          </div>
-        </div>
-
-        <!-- Media (right) -->
-        <div class="col-lg-6">
-          <figure class="mstr-frame mode-media-frame ms-lg-auto">
-            <img src="img/game/typing2.gif" alt="Typing Game preview">
-          </figure>
-        </div>
+      <div class="text-center mb-4" data-aos="fade-down">
+        <span class="mode-badge"><i class="bi bi-journal-text me-1"></i> Braille Learning</span>
       </div>
-    </div>
-  </div>
+      <h2 class="text-center fw-bold mb-4" data-aos="fade-up" data-aos-delay="50">Learn Braille—Step by Step</h2>
+      <p class="text-muted mx-auto mb-5 text-center" style="max-width:760px" data-aos="fade-up" data-aos-delay="120">
+        Follow a guided path—from the Braille alphabet to real-world writing—then lock it in with practical exercises and puzzles.
+      </p>
 
-  <!-- Stripe 2 -->
-  <div class="mstr-stripe mstr-sky" data-aos="fade-up" data-aos-duration="800" data-aos-delay="120">
-    <div class="container">
-      <div class="row align-items-center">
-        <!-- Text (left) -->
-        <div class="col-lg-6">
-          <div class="mstr-eyebrow">Puzzles • Words</div>
-          <h3 class="mstr-h3">Braille Sprint</h3>
-          <p class="mstr-body">
-            Form words and sentences under time pressure. Unlock themed challenges that deepen recognition and recall.
-          </p>
-          <ul class="mstr-list">
-            <li>Timed rounds with streak multipliers</li>
-            <li>Theme packs (animals, school, daily life)</li>
-            <li>Badges, milestones, and shareable scores</li>
-          </ul>
-          <div class="mstr-actions">
-            <a href="https://braille-app-19a76.web.app/" class="btn btn-magic btn-sm">Play Sprint</a>
-            <a href="https://braille-app-19a76.web.app/" class="btn btn-outline-magic btn-sm">Practice First</a>
-          </div>
-        </div>
-
-        <!-- Media (right) -->
-        <div class="col-lg-6">
-          <figure class="mstr-frame mode-media-frame ms-lg-auto">
-            <img src="img/game/sprint2.png" alt="Braille Sprint Game preview">
-          </figure>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</section>
-
-
-<section id="demo" class="modes-stripes" style="padding-top:110px;padding-bottom:100px;">
-  <div class="container">
-    <div class="text-center mb-3" data-aos="fade-down" data-aos-duration="700">
-      <span class="mstr-badge"><i class="bi bi-camera-video me-1"></i> Demo</span>
-    </div>
-
-    <h2 class="mstr-title text-center" data-aos="fade-up" data-aos-duration="800">
-      See BraillePlay in Action
-    </h2>
-    <p class="mstr-sub mx-auto text-center" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
-      A quick walkthrough of the 2×4 Braille device and the learning flow.
-    </p>
-  </div>
-
-  <div class="container" data-aos="zoom-in" data-aos-delay="150" data-aos-duration="900">
-    <figure class="mstr-frame" style="margin:0 auto; max-width:800px;">
-      <video
-        class="demo-video"
-        controls
-        playsinline
-        preload="metadata"
-        poster=""
-      >
-        <source src="video/demo_video.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    </figure>
-
-  </div>
-</section>
-
-
-<section id="contact" class="contact-section">
-  <div class="floating-sparkles"></div>
-
-  <div class="container">
-    <div class="text-center" data-aos="fade-down" data-aos-duration="800">
-      <span class="contact-badge">
-        <i class="bi bi-people-fill me-1"></i> Get in Touch
-      </span>
-    </div>
-
-    <h2 class="text-center fw-bold mt-3 mb-3" data-aos="fade-up" data-aos-duration="800">
-      Partner with <span class="appname"><span style="color:#2563eb;">Braille</span><span style="color:black;">Play</span></span>
-    </h2>
-
-    <p class="text-muted mx-auto mb-5 text-center" style="max-width: 680px;" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
-      Educator, developer, or nonprofit? We’d love to collaborate on inclusive, AI-powered learning. 
-      Send us a note and we’ll get back to you.
-    </p>
-
-    <div class="row justify-content-center">
-      <div class="col-12 col-lg-8" data-aos="zoom-in" data-aos-delay="150" data-aos-duration="900">
-        <div class="contact-card p-4 p-md-5">
-          <!-- Alerts -->
-          <div id="contactSuccess" class="form-alert success mb-3" role="alert" aria-live="polite">
-            Thanks! Your message has been sent. We’ll be in touch soon.
-          </div>
-          <div id="contactError" class="form-alert error mb-3" role="alert" aria-live="polite">
-            Oops—something went wrong. Please try again.
-          </div>
-
-          <form id="contactForm" action="/contact" method="POST" novalidate>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label for="name" class="form-label">Your Name</label>
-                <input id="name" name="name" type="text" class="form-control comic-input" required aria-required="true" autocomplete="name" />
-              </div>
-              <div class="col-md-6">
-                <label for="email" class="form-label">Your Email</label>
-                <input id="email" name="email" type="email" class="form-control comic-input" required aria-required="true" autocomplete="email" />
-              </div>
-              <div class="col-12">
-                <label for="subject" class="form-label">Subject (optional)</label>
-                <input id="subject" name="subject" type="text" class="form-control comic-input" />
-              </div>
-              <div class="col-12">
-                <label for="message" class="form-label">Message</label>
-                <textarea id="message" name="message" class="form-control comic-input comic-textarea" required aria-required="true" placeholder="Tell us about your idea, goals, or timeline..."></textarea>
-              </div>
-              <div class="col-12">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="yes" id="consent" required aria-required="true">
-                  <label class="form-check-label" for="consent">
-                    I agree to be contacted about my inquiry.
-                  </label>
+      <div class="ltl">
+        <article class="ltl-item" data-default="/static/learning/basics-1.jpg" data-aos="fade-up" data-aos-delay="80">
+          <div class="ltl-dot" data-aos="zoom-in">1</div>
+          <div class="row align-items-center g-4 ltl-row">
+            <div class="col-lg-6" data-aos="fade-right" data-aos-delay="120">
+              <div class="ltl-card">
+                <div class="ltl-frame" data-aos="fade-up" data-aos-delay="180">
+                  <img class="ltl-img" src="img/learning/learn1.gif" alt="Braille basics preview" />
+                </div>
+                <div class="ltl-thumbs" data-aos="fade-up" data-aos-delay="220">
+                  <button type="button" class="ltl-thumb is-active" data-src="img/learning/learning1.gif">Alphabet</button>
+                  <button type="button" class="ltl-thumb" data-src="img/learning/learning2.gif">Numbers</button>
                 </div>
               </div>
             </div>
-
-            <div class="d-flex justify-content-end mt-4">
-              <button id="submitButton" type="submit" class="comic-btn">
-                <span id="submitText">Send Message</span>
-                <span id="spinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
-              </button>
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="160">
+              <div class="ltl-body ms-lg-4">
+                <div class="ltl-kicker"><i class="bi bi-lightbulb"></i> Basics</div>
+                <h3 class="ltl-heading"><span class="mstr-h3">Start with the building blocks</span></h3>
+                <p class="ltl-text">Learn the Braille alphabet, numbers, and punctuation with tactile mapping and visual guidance.</p>
+                <ul class="ltl-list" data-aos="fade-up" data-aos-delay="220">
+                  <li><strong>Alphabet:</strong> Cell patterns & quick recognition.</li>
+                  <li><strong>Numbers & Punctuation:</strong> Symbols for everyday reading.</li>
+                </ul>
+              </div>
             </div>
-          </form>
+          </div>
+        </article>
+
+        <article class="ltl-item ltl-alt" data-default="/static/learning/exercises-1.jpg" data-aos="fade-up" data-aos-delay="120">
+          <div class="ltl-dot" data-aos="zoom-in">2</div>
+          <div class="row align-items-center g-4 ltl-row">
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="160">
+              <div class="ltl-card">
+                <div class="ltl-frame" data-aos="fade-up" data-aos-delay="200">
+                  <img class="ltl-img" src="/static/learning/exercises-1.jpg" alt="Practice & puzzles preview" />
+                </div>
+                <div class="ltl-thumbs" data-aos="fade-up" data-aos-delay="240">
+                  <button type="button" class="ltl-thumb is-active" data-src="img/learning/learning4.gif">Math</button>
+                  <button type="button" class="ltl-thumb" data-src="img/learning/learning3.gif">Image</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
+              <div class="ltl-body">
+                <div class="ltl-kicker"><i class="bi bi-controller"></i> Practice & Problem Solving</div>
+                <h3 class="ltl-heading"><span class="mstr-h3">Make it stick with practice</span></h3>
+                <p class="ltl-text">Hands-on tasks that reinforce skills and build confidence—fun and effective.</p>
+                <ul class="ltl-list" data-aos="fade-up" data-aos-delay="260">
+                  <li><strong>Math:</strong> Solve arithmetic using Braille numerals.</li>
+                  <li><strong>Word Input:</strong> Type words & sentences on the 2×4 device.</li>
+                  <li><strong>Puzzles:</strong> Apply knowledge to solve clever challenges.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Modes (Stripes) ===== -->
+  <section id="modes" class="modes-stripes">
+    <div class="container">
+      <div class="text-center mb-3" data-aos="fade-down" data-aos-duration="700">
+        <span class="mstr-badge"><i class="bi bi-controller me-1"></i> Game Modes</span>
+      </div>
+      <h2 class="mstr-title text-center" data-aos="fade-up" data-aos-duration="800">Play to Learn — Fast, Fun, Focused</h2>
+      <p class="mstr-sub mx-auto text-center" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">Build speed and accuracy, test recognition, and cement skills with focused challenges.</p>
+    </div>
+
+    <div class="mstr-stripe mstr-blue" data-aos="fade-up" data-aos-duration="800">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="mstr-eyebrow">Speed • Accuracy</div>
+            <h3 class="mstr-h3">Typing Game</h3>
+            <p class="mstr-body">Enter Braille cells quickly and precisely on the 2×4 device. Adaptive levels track your WPM and accuracy as you improve.</p>
+            <ul class="mstr-list">
+              <li>WPM targets with gradual difficulty ramps</li>
+              <li>Immediate feedback on errors and timing</li>
+              <li>Session summaries and personal bests</li>
+            </ul>
+            <div class="mstr-actions">
+              <a href="https://braille-app-19a76.web.app/" class="btn btn-magic btn-sm">Play Typing</a>
+              <a href="https://braille-app-19a76.web.app/" class="btn btn-outline-magic btn-sm">View Lessons</a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <figure class="mstr-frame mode-media-frame ms-lg-auto">
+              <img src="img/game/typing2.gif" alt="Typing Game preview" />
+            </figure>
+          </div>
         </div>
       </div>
     </div>
 
-  </div>
-</section>
-
-
-<!-- Success Modal -->
-<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="border-radius:16px;">
-      <div class="modal-header border-0">
-        <h5 class="modal-title" id="contactModalLabel">Message sent ✨</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="mstr-stripe mstr-sky" data-aos="fade-up" data-aos-duration="800" data-aos-delay="120">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="mstr-eyebrow">Puzzles • Words</div>
+            <h3 class="mstr-h3">Braille Sprint</h3>
+            <p class="mstr-body">Form words and sentences under time pressure. Unlock themed challenges that deepen recognition and recall.</p>
+            <ul class="mstr-list">
+              <li>Timed rounds with streak multipliers</li>
+              <li>Theme packs (animals, school, daily life)</li>
+              <li>Badges, milestones, and shareable scores</li>
+            </ul>
+            <div class="mstr-actions">
+              <a href="https://braille-app-19a76.web.app/" class="btn btn-magic btn-sm">Play Sprint</a>
+              <a href="https://braille-app-19a76.web.app/" class="btn btn-outline-magic btn-sm">Practice First</a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <figure class="mstr-frame mode-media-frame ms-lg-auto">
+              <img src="img/game/sprint2.png" alt="Braille Sprint Game preview" />
+            </figure>
+          </div>
+        </div>
       </div>
-      <div class="modal-body text-muted">
-        Thanks! We’ve received your message and will get back to you soon.
+    </div>
+  </section>
+
+  <!-- ===== Demo ===== -->
+  <section id="demo" class="modes-stripes" style="padding-top:110px;padding-bottom:100px">
+    <div class="container">
+      <div class="text-center mb-3" data-aos="fade-down" data-aos-duration="700">
+        <span class="mstr-badge"><i class="bi bi-camera-video me-1"></i> Demo</span>
       </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-magic" data-bs-dismiss="modal">Great</button>
+      <h2 class="mstr-title text-center" data-aos="fade-up" data-aos-duration="800">See BraillePlay in Action</h2>
+      <p class="mstr-sub mx-auto text-center" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">A quick walkthrough of the 2×4 Braille device and the learning flow.</p>
+    </div>
+    <div class="container" data-aos="zoom-in" data-aos-delay="150" data-aos-duration="900">
+      <figure class="mstr-frame" style="margin:0 auto;max-width:800px">
+        <video class="demo-video" controls playsinline preload="metadata" poster="">
+          <source src="video/demo_video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section id="contact" class="contact-section">
+    <div class="floating-sparkles"></div>
+    <div class="container">
+      <div class="text-center" data-aos="fade-down" data-aos-duration="800">
+        <span class="contact-badge"><i class="bi bi-people-fill me-1"></i> Get in Touch</span>
+      </div>
+      <h2 class="text-center fw-bold mt-3 mb-3" data-aos="fade-up" data-aos-duration="800">
+        Partner with <span class="appname"><span style="color:#2563eb;">Braille</span><span style="color:black;">Play</span></span>
+      </h2>
+      <p class="text-muted mx-auto mb-5 text-center" style="max-width:680px" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
+        Educator, developer, or nonprofit? We’d love to collaborate on inclusive, AI-powered learning. Send us a note and we’ll get back to you.
+      </p>
+
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8" data-aos="zoom-in" data-aos-delay="150" data-aos-duration="900">
+          <div class="contact-card p-4 p-md-5">
+            <div id="contactSuccess" class="form-alert success mb-3" role="alert" aria-live="polite">Thanks! Your message has been sent. We’ll be in touch soon.</div>
+            <div id="contactError" class="form-alert error mb-3" role="alert" aria-live="polite">Oops—something went wrong. Please try again.</div>
+
+            <form id="contactForm" action="/contact" method="POST" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="name" class="form-label">Your Name</label>
+                  <input id="name" name="name" type="text" class="form-control comic-input" required aria-required="true" autocomplete="name" />
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Your Email</label>
+                  <input id="email" name="email" type="email" class="form-control comic-input" required aria-required="true" autocomplete="email" />
+                </div>
+                <div class="col-12">
+                  <label for="subject" class="form-label">Subject (optional)</label>
+                  <input id="subject" name="subject" type="text" class="form-control comic-input" />
+                </div>
+                <div class="col-12">
+                  <label for="message" class="form-label">Message</label>
+                  <textarea id="message" name="message" class="form-control comic-input comic-textarea" required aria-required="true" placeholder="Tell us about your idea, goals, or timeline..."></textarea>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="yes" id="consent" required aria-required="true" />
+                    <label class="form-check-label" for="consent">I agree to be contacted about my inquiry.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end mt-4">
+                <button id="submitButton" type="submit" class="comic-btn">
+                  <span id="submitText" style="font-family:var(--bs-font-sans-serif)!important;">Send Message</span>
+                  <span id="spinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Success Modal ===== -->
+  <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius:16px">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="contactModalLabel">Message sent</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-muted">Thanks! We’ve received your message and will get back to you soon.</div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-magic" data-bs-dismiss="modal">Great</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
+  <!-- Vendors -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>
-  AOS.init({
-    once: true,                 // animate once per element
-    duration: 700,              // base duration
-    easing: 'ease-out-quart',
-    offset: 80,                 // start a bit before the element hits center
-    anchorPlacement: 'top-center'
-  });
-</script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-<script>
-(function () {
-  // --- helpers ---
-  function fadeSwap(imgEl, newSrc, newAlt) {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion) { imgEl.src = newSrc; imgEl.alt = newAlt; return; }
+  <!-- ===== AOS Init ===== -->
+  <script>
+    AOS.init({ once:true, duration:700, easing:'ease-out-quart', offset:80, anchorPlacement:'top-center' });
+  </script>
 
-    // Preload, then fade-out -> swap -> fade-in
-    const pre = new Image();
-    pre.onload = () => {
-      imgEl.style.opacity = '0';
-      // wait for fade-out to start, then swap
-      setTimeout(() => {
-        imgEl.src = newSrc;
-        imgEl.alt = newAlt;
-        // ensure layout has applied the new src before fade-in
-        requestAnimationFrame(() => { imgEl.style.opacity = '1'; });
-      }, 150);
-    };
-    pre.src = newSrc;
-  }
-
-  function swapTo(btn, article) {
-    const imgEl = article.querySelector('.ltl-img');
-    if (!imgEl || !btn) return;
-    // active state
-    article.querySelectorAll('.ltl-thumb').forEach(b => {
-      b.classList.remove('is-active');
-      b.setAttribute('aria-pressed', 'false');
-    });
-    btn.classList.add('is-active');
-    btn.setAttribute('aria-pressed', 'true');
-
-    const label = (btn.textContent || 'Preview').trim();
-    fadeSwap(imgEl, btn.dataset.src, label + ' preview');
-  }
-
-  function nextThumb(article) {
-    const thumbs = Array.from(article.querySelectorAll('.ltl-thumb'));
-    if (!thumbs.length) return null;
-    const activeIdx = Math.max(0, thumbs.findIndex(t => t.classList.contains('is-active')));
-    return thumbs[(activeIdx + 1) % thumbs.length];
-  }
-
-  // Preload everything once
-  document.querySelectorAll('.ltl-thumb[data-src]').forEach(b => { const i=new Image(); i.src=b.dataset.src; });
-
-  // Manual click
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.ltl-thumb');
-    if (!btn) return;
-    const article = btn.closest('.ltl-item');
-    if (!article) return;
-    swapTo(btn, article);
-
-    // reset rotator with short grace period
-    const state = rotators.get(article);
-    if (state) {
-      clearTimeout(state.t);
-      state.nextDelay = 10500; // 4.5s grace after click
-      schedule(article);
-    }
-  });
-
-  // Auto-rotator per article
-  const rotators = new Map();
-
-  function schedule(article) {
-    const state = rotators.get(article);
-    if (!state || !state.active) return;
-    const delay = state.nextDelay ?? (10000 + Math.random()*1000); // 3–4s
-    state.nextDelay = null;
-    state.t = setTimeout(() => {
-      if (state.visible) {
-        const btn = nextThumb(article);
-        if (btn) swapTo(btn, article);
+  <!-- ===== Timeline Thumbs + Auto-rotate ===== -->
+  <script>
+    (function () {
+      function fadeSwap(imgEl, newSrc, newAlt) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { imgEl.src = newSrc; imgEl.alt = newAlt; return; }
+        const pre = new Image();
+        pre.onload = () => {
+          imgEl.style.opacity = '0';
+          setTimeout(() => {
+            imgEl.src = newSrc; imgEl.alt = newAlt;
+            requestAnimationFrame(() => { imgEl.style.opacity = '1'; });
+          }, 150);
+        };
+        pre.src = newSrc;
       }
-      schedule(article);
-    }, delay);
-  }
-
-  // Pause off-screen
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const article = entry.target;
-      const state = rotators.get(article);
-      if (!state) return;
-      state.visible = entry.isIntersecting;
-      article.classList.toggle('is-on', entry.isIntersecting);
-      clearTimeout(state.t);
-      if (entry.isIntersecting) {
+      function swapTo(btn, article) {
+        const imgEl = article.querySelector('.ltl-img'); if (!imgEl || !btn) return;
+        article.querySelectorAll('.ltl-thumb').forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
+        btn.classList.add('is-active'); btn.setAttribute('aria-pressed', 'true');
+        const label = (btn.textContent || 'Preview').trim();
+        fadeSwap(imgEl, btn.dataset.src, label + ' preview');
+      }
+      function nextThumb(article) {
+        const thumbs = Array.from(article.querySelectorAll('.ltl-thumb'));
+        if (!thumbs.length) return null;
+        const activeIdx = Math.max(0, thumbs.findIndex(t => t.classList.contains('is-active')));
+        return thumbs[(activeIdx + 1) % thumbs.length];
+      }
+      document.querySelectorAll('.ltl-thumb[data-src]').forEach(b => { const i=new Image(); i.src=b.dataset.src; });
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.ltl-thumb'); if (!btn) return;
+        const article = btn.closest('.ltl-item'); if (!article) return;
+        swapTo(btn, article);
+        const state = rotators.get(article);
+        if (state) { clearTimeout(state.t); state.nextDelay = 10500; schedule(article); }
+      });
+      const rotators = new Map();
+      function schedule(article) {
+        const state = rotators.get(article); if (!state || !state.active) return;
+        const delay = state.nextDelay ?? (10000 + Math.random() * 1000);
+        state.nextDelay = null;
+        state.t = setTimeout(() => {
+          if (state.visible) { const btn = nextThumb(article); if (btn) swapTo(btn, article); }
+          schedule(article);
+        }, delay);
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const article = entry.target;
+          const state = rotators.get(article); if (!state) return;
+          state.visible = entry.isIntersecting;
+          article.classList.toggle('is-on', entry.isIntersecting);
+          clearTimeout(state.t);
+          if (entry.isIntersecting) {
+            const active = article.querySelector('.ltl-thumb.is-active') || article.querySelector('.ltl-thumb');
+            if (active) swapTo(active, article);
+            schedule(article);
+          }
+        });
+      }, { rootMargin: '-20% 0px -20% 0px', threshold: 0.2 });
+      document.querySelectorAll('.ltl-item').forEach(article => {
         const active = article.querySelector('.ltl-thumb.is-active') || article.querySelector('.ltl-thumb');
         if (active) swapTo(active, article);
-        schedule(article);
+        rotators.set(article, { t:null, visible:false, active:true, nextDelay:null });
+        io.observe(article);
+      });
+      document.addEventListener('visibilitychange', () => {
+        rotators.forEach((state, article) => { clearTimeout(state.t); if (!document.hidden && state.visible) schedule(article); });
+      });
+    })();
+  </script>
+
+  <!-- ===== EmailJS Contact ===== -->
+  <script>
+    emailjs.init("27QgP0uQsaxgso0ls");
+    const form = document.getElementById("contactForm");
+    const btn = document.getElementById("submitButton");
+    const spinner = document.getElementById("spinner");
+    const submitText = document.getElementById("submitText");
+    const successBox = document.getElementById("contactSuccess");
+    const errorBox = document.getElementById("contactError");
+
+    function setLoading(isLoading){
+      btn.disabled = isLoading;
+      spinner.classList.toggle("d-none", !isLoading);
+      submitText.textContent = isLoading ? "Sending..." : "Send Message";
+      Array.from(form.elements).forEach(el => { el.disabled = isLoading; });
+      successBox.style.display = "none";
+      errorBox.style.display = "none";
+    }
+    function showSuccessModal(){
+      if (window.bootstrap && document.getElementById("contactModal")) {
+        const modal = new bootstrap.Modal(document.getElementById("contactModal"));
+        modal.show();
       }
-    });
-  }, { rootMargin: '-20% 0px -20% 0px', threshold: 0.2 });
-
-  // Init each step
-  document.querySelectorAll('.ltl-item').forEach(article => {
-    const active = article.querySelector('.ltl-thumb.is-active') || article.querySelector('.ltl-thumb');
-    if (active) swapTo(active, article);
-    rotators.set(article, { t: null, visible: false, active: true, nextDelay: null });
-    io.observe(article);
-  });
-
-  // Tab visibility: pause/resume
-  document.addEventListener('visibilitychange', () => {
-    rotators.forEach((state, article) => {
-      clearTimeout(state.t);
-      if (!document.hidden && state.visible) schedule(article);
-    });
-  });
-})();
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-<script>
-  // ---- EmailJS setup ----
-  // Initialize with your public key (already present in your snippet)
-  emailjs.init("27QgP0uQsaxgso0ls");
-
-  // ---- DOM hooks ----
-  const form        = document.getElementById("contactForm");
-  const btn         = document.getElementById("submitButton");
-  const spinner     = document.getElementById("spinner");
-  const submitText  = document.getElementById("submitText");
-  const successBox  = document.getElementById("contactSuccess");
-  const errorBox    = document.getElementById("contactError");
-
-  // Utility: toggle loading state
-  function setLoading(isLoading){
-    // button
-    btn.disabled = isLoading;
-    spinner.classList.toggle("d-none", !isLoading);
-    submitText.textContent = isLoading ? "Sending..." : "Send Message";
-
-    // lock/unlock all form fields while sending
-    Array.from(form.elements).forEach(el => { el.disabled = isLoading; });
-
-    // hide alerts when retrying
-    successBox.style.display = "none";
-    errorBox.style.display   = "none";
-  }
-
-  // Utility: show Bootstrap modal
-  function showSuccessModal(){
-    if (window.bootstrap && document.getElementById("contactModal")) {
-      const modal = new bootstrap.Modal(document.getElementById("contactModal"));
-      modal.show();
     }
-  }
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      if (!form.checkValidity()) { form.classList.add("was-validated"); return; }
+      setLoading(true);
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const subject = document.getElementById("subject").value.trim();
+      const message = document.getElementById("message").value.trim();
 
-  // ---- Submit handler ----
-  form.addEventListener("submit", function(e){
-    e.preventDefault();
-    // built-in validation first
-    if (!form.checkValidity()) {
-      form.classList.add("was-validated");
-      return;
-    }
-
-    setLoading(true);
-
-    // gather values
-    const name    = document.getElementById("name").value.trim();
-    const email   = document.getElementById("email").value.trim();
-    const subject = document.getElementById("subject").value.trim();
-    const message = document.getElementById("message").value.trim();
-
-    // send via EmailJS
-    emailjs.send("service_rglla1a", "template_19ra51l", {
-      from_name: name,
-      subject: subject || "(No subject)",
-      user_email: email,
-      message: message,
-      to_email: "brailleplay87@gmail.com"
-    })
-    .then(() => {
-      setLoading(false);
-      form.reset();
-      form.classList.remove("was-validated");
-      // inline banner
-      successBox.style.display = "block";
-      // modal popup
-      showSuccessModal();
-    })
-    .catch((error) => {
-      console.error(error);
-      setLoading(false);
-      errorBox.style.display = "block";
+      emailjs.send("service_rglla1a","template_19ra51l",{
+        from_name:name, subject:subject || "(No subject)", user_email:email, message:message, to_email:"brailleplay87@gmail.com"
+      }).then(() => {
+        setLoading(false); form.reset(); form.classList.remove("was-validated");
+        successBox.style.display = "block"; showSuccessModal();
+      }).catch((error) => {
+        console.error(error); setLoading(false); errorBox.style.display = "block";
+      });
     });
-  });
-</script>
-<script>
-(function(){
-  // ensure top anchor exists
-  if(!document.getElementById('top')){
-    const a=document.createElement('div'); a.id='top'; document.body.prepend(a);
-  }
+  </script>
 
-  const header = document.getElementById('siteNav');
-  const toggle = header.querySelector('.nav-toggle');
-  const menu   = document.getElementById('navMenu');
-
-  // mobile toggle
-  toggle?.addEventListener('click', ()=>{
-    const open = menu.classList.toggle('is-open');
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-  document.addEventListener('click', (e)=>{
-    if(!menu.classList.contains('is-open')) return;
-    if(e.target.closest('#siteNav')) return;
-    menu.classList.remove('is-open');
-    toggle?.setAttribute('aria-expanded','false');
-  });
-
-  // smooth scroll offset for internal links
-  function smoothTo(hash){
-    const el = document.querySelector(hash); if(!el) return;
-    const y = el.getBoundingClientRect().top + window.pageYOffset - (header.offsetHeight + 8);
-    window.scrollTo({ top:y, behavior:'smooth' });
-  }
-  header.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', (e)=>{
-      e.preventDefault(); smoothTo(a.getAttribute('href'));
-      menu.classList.remove('is-open'); toggle?.setAttribute('aria-expanded','false');
-    });
-  });
-})();
-</script>
-
-
-
+  <!-- ===== Nav: Smooth Scroll & Mobile Toggle ===== -->
+  <script>
+    (function(){
+      if(!document.getElementById('top')){ const a=document.createElement('div'); a.id='top'; document.body.prepend(a); }
+      const header = document.getElementById('siteNav');
+      const toggle = header.querySelector('.nav-toggle');
+      const menu   = document.getElementById('navMenu');
+      toggle?.addEventListener('click', ()=>{
+        const open = menu.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.addEventListener('click', (e)=>{
+        if(!menu.classList.contains('is-open')) return;
+        if(e.target.closest('#siteNav')) return;
+        menu.classList.remove('is-open');
+        toggle?.setAttribute('aria-expanded','false');
+      });
+      function smoothTo(hash){
+        const el=document.querySelector(hash); if(!el) return;
+        const y=el.getBoundingClientRect().top + window.pageYOffset - (header.offsetHeight + 8);
+        window.scrollTo({top:y,behavior:'smooth'});
+      }
+      header.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click',(e)=>{
+          e.preventDefault(); smoothTo(a.getAttribute('href'));
+          menu.classList.remove('is-open'); toggle?.setAttribute('aria-expanded','false');
+        });
+      });
+    })();
+  </script>
 </body>
+</html>
