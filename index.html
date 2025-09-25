@@ -1284,6 +1284,216 @@ body { overflow-x: hidden; }
 @media (min-width: 992px){
   .ms-lg-auto{ margin-left: auto !important; }
 }
+/* ===== Sub-Navbar ===== */
+/* ===== Top Navbar (Minimal) ===== */
+.topnav{
+  position: sticky; top:0; z-index:1050;
+  background: #f8fafc;                 /* light, like screenshot */
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 6px 16px rgba(2,6,23,.04);
+}
+.topnav .nav-row{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 12px 0;
+}
+
+/* Brand matches your lockup */
+.topnav .brand{
+  text-decoration:none; line-height:1;
+  font-size: 1.85rem;
+  color: var(--primary-600);
+}
+
+/* Menu */
+.nav-menu{
+  display:flex; align-items:center; gap: 18px;
+}
+.nav-link{
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 700; letter-spacing:.2px;
+  color: var(--text); text-decoration:none;
+  padding: 8px 10px; border-radius: 10px;
+  transition: background-color .18s ease, color .18s ease;
+}
+.nav-link:hover{ color: var(--primary-600); background: rgba(37,99,235,.06); }
+
+/* CTA button */
+.btn-cta{
+  display:inline-flex; align-items:center; gap:8px;
+  font-weight:800; text-decoration:none;
+  padding: 10px 14px; border-radius: 12px;
+  background: var(--primary-600); color:#fff;
+  border:1px solid var(--primary-600);
+  transition: background-color .2s ease, border-color .2s ease, transform .02s ease;
+}
+.btn-cta:hover{ background: var(--primary); border-color: var(--primary); }
+.btn-cta:active{ transform: translateY(1px); }
+
+/* Mobile */
+.nav-toggle{
+  display:none; border:1px solid var(--border); background:#fff; color:var(--text);
+  border-radius:10px; padding:6px 10px; font-size:1.25rem;
+}
+@media (max-width: 991.98px){
+  .nav-toggle{ display:inline-flex; align-items:center; justify-content:center; }
+  .nav-menu{
+    position:absolute; left:12px; right:12px; top: calc(100% + 8px);
+    display:grid; gap:8px; padding:12px;
+    background:#fff; border:1px solid var(--border); border-radius:14px;
+    box-shadow: 0 18px 44px rgba(2,6,23,.12);
+    transform-origin: top; transform: scaleY(0); opacity:0; pointer-events:none;
+  }
+  .nav-menu.is-open{ transform: scaleY(1); opacity:1; pointer-events:auto; }
+  .nav-link{ padding:10px 12px; }
+}
+
+.features{
+  padding-top: 110px ;
+  padding-bottom: 110px ;
+}
+
+
+
+.features .content h3 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  padding: 10px 20px;
+  background: color-mix(in srgb, darkgray, transparent 85%);
+  color: black;
+  border-radius: 7px;
+  display: inline-block;
+}
+
+
+.features .content h2 {
+  font-family: 'Comic Neue', cursive;;
+  color:black;
+  font-weight: 700;
+}
+.features .content p{
+  text-align: justify;
+  color: black;
+}
+.features .content p:last-child {
+  color:black;
+  margin-bottom: 0;
+}
+
+.features .content .read-more {
+  background: #22C55E;
+  color: black;
+  font-family: var(--heading-font);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  padding: 12px 24px;
+  border-radius: 5px;
+  transition: 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.features .content .read-more i {
+  font-size: 18px;
+  margin-left: 5px;
+  line-height: 0;
+  transition: 0.3s;
+}
+
+.features .content .read-more:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 20%);
+  padding-right: 19px;
+}
+
+.features .content .read-more:hover i {
+  margin-left: 10px;
+}
+
+.features .icon-box {
+  background-color: var(--surface-color);
+  padding: 50px 40px;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  transition: all 0.3s ease-out 0s;
+}
+
+.features .icon-box i {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  font-size: 32px;
+  line-height: 0;
+  transition: all 0.4s ease-out 0s;
+  background-color: color-mix(in srgb, black, transparent 85%);
+  color: #505050;
+}
+
+.features .icon-box h3 {
+  margin-bottom: 10px;
+  color:black;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.features .icon-box p {
+  color:#505050;
+  margin-bottom: 0;
+}
+
+.features .icon-box:hover i {
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+}
+
+.features .icon-boxes .col-md-6:nth-child(2) .icon-box,
+.features .icon-boxes .col-md-6:nth-child(4) .icon-box {
+  margin-top: -40px;
+}
+
+@media (max-width: 768px) {
+
+  .features .icon-boxes .col-md-6:nth-child(2) .icon-box,
+  .features .icon-boxes .col-md-6:nth-child(4) .icon-box {
+    margin-top: 0;
+  }
+}
+/* keep same design — just color alignment */
+.features .icon-box{
+  background:#fff;                       /* matches other sections */
+  border:1px solid var(--border);
+  box-shadow: 0 12px 28px var(--shadow);
+  border-radius: 12px;
+}
+
+.features .icon-box i{
+  background-color: rgba(37,99,235,.10); /* soft brand tint */
+  color: var(--primary-600);
+}
+
+.features .content h2{ color: var(--text); }
+.features .content p{ color: var(--muted); }
+/* keep same design — just color alignment */
+.features .icon-box{
+  background:#fff;                       /* matches other sections */
+  border:1px solid var(--border);
+  box-shadow: 0 12px 28px var(--shadow);
+  border-radius: 12px;
+}
+
+.features .icon-box i{
+  background-color: rgba(37,99,235,.10); /* soft brand tint */
+  color: var(--primary-600);
+}
+
+.features .content h2{ color: var(--text); }
+.features .content p{ color: var(--muted); }
+
 
   </style>
 </head>
@@ -1333,6 +1543,27 @@ body { overflow-x: hidden; }
     <source src="video/hero2.mp4" type="video/mp4">
   </video>
   </section>
+<!-- ===== Modern Navbar (Clean V3) ===== -->
+<!-- ===== Top Navbar (Minimal) ===== -->
+<header id="siteNav" class="topnav" role="banner">
+  <div class="container nav-row">
+    <a class="brand appname" href="#top">Braille<span style="color:black;">Play</span></a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <nav id="navMenu" class="nav-menu" role="navigation" aria-label="Primary">
+      <a href="#about"   class="nav-link">About</a>
+      <a href="#learning" class="nav-link">Features</a>
+      <a href="https://braille-app-19a76.web.app/" class="btn-cta">
+        <i class="bi bi-play-circle me-1"></i> Start Braille
+      </a>
+    </nav>
+  </div>
+</header>
+
+
 
 <section id="about" class="about-section">
     <div class="floating-sparkles"></div>
@@ -1396,6 +1627,64 @@ body { overflow-x: hidden; }
 
   </div>
 </section>
+  <section id="features" class="features section" style="background-color: var(--surface);">
+  <div class="container" data-aos="fade-up">
+    <div class="row align-items-xl-center gy-5">
+      <div class="col-xl-5 content">
+        <!-- Brand name instead of logo image -->
+        <div class="appname mb-2 " style="font-size:3.5rem; line-height:.92; color:var(--primary-600);">
+          Braille<span class="text-dark">Play</span>
+        </div>
+        <br>
+        <h2>Turn Touch Into Language</h2>
+        <p>
+          BraillePlay makes Braille feel natural—combining a tactile 2×4 input device,
+          guided web lessons, and playful challenges so progress feels fast and fun.
+        </p>
+      </div>
+
+      <div class="col-xl-7">
+        <div class="row gy-4 icon-boxes">
+          <div class="col-md-6" data-aos="fade-up">
+            <div class="icon-box">
+              <i class="bi bi-mouse"></i>
+              <h3>Interactive Device</h3>
+              <p>Practice real Braille input on a custom 2×4 tactile layout.</p>
+            </div>
+          </div>
+          <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon-box">
+              <i class="bi bi-journal-text"></i>
+              <h3>Guided Lessons</h3>
+              <p>From alphabet & numbers to punctuation and real sentences.</p>
+            </div>
+          </div>
+          <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon-box">
+              <i class="bi bi-controller"></i>
+              <h3>Engaging Games</h3>
+              <p>Mini-games and sprints that build recognition and speed.</p>
+            </div>
+          </div>
+          <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="icon-box">
+              <i class="bi bi-graph-up"></i>
+              <h3>Progress Tracking</h3>
+              <p>See accuracy, streaks, and milestones at a glance.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
 <section id="learning" class="learn-timeline">
   <div class="container">
     <div class="text-center mb-4" data-aos="fade-down">
@@ -1888,6 +2177,44 @@ body { overflow-x: hidden; }
     });
   });
 </script>
+<script>
+(function(){
+  // ensure top anchor exists
+  if(!document.getElementById('top')){
+    const a=document.createElement('div'); a.id='top'; document.body.prepend(a);
+  }
+
+  const header = document.getElementById('siteNav');
+  const toggle = header.querySelector('.nav-toggle');
+  const menu   = document.getElementById('navMenu');
+
+  // mobile toggle
+  toggle?.addEventListener('click', ()=>{
+    const open = menu.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.addEventListener('click', (e)=>{
+    if(!menu.classList.contains('is-open')) return;
+    if(e.target.closest('#siteNav')) return;
+    menu.classList.remove('is-open');
+    toggle?.setAttribute('aria-expanded','false');
+  });
+
+  // smooth scroll offset for internal links
+  function smoothTo(hash){
+    const el = document.querySelector(hash); if(!el) return;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - (header.offsetHeight + 8);
+    window.scrollTo({ top:y, behavior:'smooth' });
+  }
+  header.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      e.preventDefault(); smoothTo(a.getAttribute('href'));
+      menu.classList.remove('is-open'); toggle?.setAttribute('aria-expanded','false');
+    });
+  });
+})();
+</script>
+
 
 
 </body>
