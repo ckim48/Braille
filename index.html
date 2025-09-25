@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BraillePlay</title>
+  <link rel="icon" href="logo-mini.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="icon" href="/static/favicon.png" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+  --bg:#ffffff;
+  --text:#0f172a;          /* slate-900 */
+  --muted:#475569;         /* slate-600 */
+  --border:#e2e8f0;        /* slate-200 */
+  --surface:#f8fafc;       /* slate-50 */
+  --surface-2:#eff6ff;     /* blue-50 */
+  --primary:#3b82f6;       /* blue-500 */
+  --primary-600:#2563eb;   /* blue-600 */
+  --primary-300:#60a5fa;   /* blue-400/300 */
+  --shadow: rgba(2,6,23,.08);
+}
+    .hero{
+  min-height:100vh;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, var(--surface-2) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  text-align:center;
+  padding:80px 20px 40px;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  overflow-x: clip;
+}
+.about h2{
+  font-family: 'Comic Neue', cursive;;
+}
+.hero h1{
+  font-family:'Comic Neue', cursive;
+  font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+  font-weight:800;
+  margin-bottom:1rem;
+  color: var(--text);
+  text-shadow:none;
+}
+.word{ display:inline-block; opacity:0; transform:scale(.96); animation:popIn .5s forwards; }
+.word:nth-child(1){ animation-delay:.05s; }
+.word:nth-child(2){ animation-delay:.18s; }
+.word:nth-child(3){ animation-delay:.32s; }
+.highlight{ color: var(--primary-600); background:none; }
+
+@keyframes popIn{
+  0%{ opacity:0; transform: translateY(6px) scale(.96); }
+  100%{ opacity:1; transform: translateY(0) scale(1); }
+}
+
+.hero p{
+  font-size:1.125rem;
+  color: var(--muted);
+  max-width:680px;
+  margin:0 auto 2rem;
+  opacity:0; animation:fadeUp .7s .35s ease-out forwards;
+}
+@keyframes fadeUp{
+  from{ transform:translateY(12px); opacity:0; }
+  to{ transform:translateY(0); opacity:1; }
+}
+
+/* Buttons */
+.btn-magic,
+.btn-outline-magic{
+  font-weight:700;
+  z-index: 99999;
+  text-transform:uppercase;
+  padding:12px 30px;
+  border-radius:12px;
+  border:2px solid transparent;
+  transition: all .25s ease;
+  font-family:inherit;
+  line-height:1.2;
+}
+.btn-magic{
+  background: var(--primary);
+  color:#fff;
+  border-color: var(--primary);
+}
+.btn-magic:hover{ background: var(--primary-600); border-color: var(--primary-600); color:#fff; }
+
+.btn-outline-magic{
+  background: transparent;
+  color: var(--primary-600);
+  border-color: var(--primary-600);
+}
+.btn-outline-magic:hover{
+  background: var(--primary-600);
+  color:#fff;
+}
+.btn-download {
+  background: var(--primary-600);
+  color: #fff;
+  border-color: var(--primary-600);
+  font-weight: 700;
+}
+.btn-download:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+/* Hero mockup/image */
+.app-preview-img{
+  border:1px solid var(--border);
+  border-radius:16px;
+  margin-top:48px;
+  max-width:90%;
+  box-shadow: 0 12px 28px var(--shadow);
+  opacity:0; animation:fadeUp .7s .5s ease-out forwards;
+}
+/* ========== HERO BACKGROUND ========== */
+.comic-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+}
+
+/* Floating Gradient Blobs */
+.blob {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at 30% 30%, var(--primary-300) 0%, transparent 70%);
+  opacity: 0.25;
+  border-radius: 50%;
+  animation: blobFloat 18s ease-in-out infinite;
+}
+.blob-1 {
+  top: -120px;
+  left: -120px;
+  animation-delay: 0s;
+}
+.blob-2 {
+  bottom: -140px;
+  right: -100px;
+  background: radial-gradient(circle at 70% 70%, var(--primary-600) 0%, transparent 70%);
+  animation-delay: 8s;
+}
+.blob-3 {
+  top: 40%;
+  left: 60%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle at 50% 50%, var(--primary) 0%, transparent 70%);
+  animation-delay: 4s;
+}
+
+@keyframes blobFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -30px) scale(1.05); }
+}
+
+/* Floating Particles */
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: var(--primary-300);
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: floatParticle 12s linear infinite;
+}
+.particle:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
+.particle:nth-child(2) { top: 40%; left: 80%; animation-delay: 2s; }
+.particle:nth-child(3) { top: 70%; left: 25%; animation-delay: 4s; }
+.particle:nth-child(4) { top: 50%; left: 60%; animation-delay: 6s; }
+.particle:nth-child(5) { top: 30%; left: 40%; animation-delay: 8s; }
+
+@keyframes floatParticle {
+  0% { transform: translateY(0) scale(1); opacity: 0.4; }
+  50% { transform: translateY(-40px) scale(1.1); opacity: 0.7; }
+  100% { transform: translateY(0) scale(1); opacity: 0.4; }
+}
+
+/* Moving Diagonal Lines */
+.lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150%;
+  height: 150%;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(37, 99, 235, 0.05) 0 2px,
+    transparent 2px 20px
+  );
+  opacity: 0.08;
+  animation: moveLines 60s linear infinite;
+  transform: rotate(-10deg);
+}
+@keyframes moveLines {
+  0% { background-position: 0 0; }
+  100% { background-position: 1000px 1000px; }
+}
+
+/* Subtle Halftone Texture */
+.halftone-layer {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(96,165,250,.12) 1px, transparent 1px);
+  background-size: 10px 10px;
+  opacity: .15;
+}
+.about-section{
+  background: var(--surface);
+  color: var(--text);
+  overflow-x: clip;
+  padding:80px 20px;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  position:relative;
+}
+.about-section h2{
+  font-family:'Comic Neue', cursive;
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight:800;
+  color: var(--text);
+}
+.about-section p{
+  font-size:1.05rem;
+  line-height:1.75;
+  color: var(--muted);
+  text-align: justify;
+}
+.about-frame img{
+  border:1px solid var(--border);
+  border-radius:16px;
+  outline:0;
+  box-shadow: 0 10px 24px var(--shadow);
+}
+/* Image frame for About section */
+.about-frame {
+  width: 100%;
+  max-width: 540px; /* controls max size of frame */
+  aspect-ratio: 4 / 3; /* consistent shape, 4:3 ratio */
+/*  border: 5px solid var(--border);*/
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 0 auto;
+  box-shadow: 0 10px 24px var(--shadow);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Make the image cover the frame */
+.about-frame .about-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.custom-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.custom-bullets li {
+  position: relative;
+  padding-left: 28px; /* Space for bullet */
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.custom-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 10px;
+  height: 10px;
+  background-color: #007bff; /* Adjust color to match theme */
+  border-radius: 50%;
+}
+
+/* Custom bullet styling */
+.custom-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+.custom-bullets li {
+  position: relative;
+  padding-left: 28px; /* space for custom bullet */
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.custom-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 10px;
+  height: 10px;
+  background-color: #007bff;
+  border-radius: 50%;
+}
+@media (min-width: 768px) {
+  .mt-md-6 {
+    margin-top: 9.5rem; /* or any value you want */
+  }
+}
+.floating-sparkles{
+  position:absolute; top:-60px; left:0; width:100%; height:100%;
+  pointer-events:none; z-index:0;
+  background-image:
+    radial-gradient(var(--primary-300) 6px, transparent 7px),
+    radial-gradient(var(--primary) 4px, transparent 5px),
+    radial-gradient(var(--primary-600) 5px, transparent 6px);
+  background-size:140px 140px;
+  background-position: 5% 10%, 40% 70%, 80% 20%;
+  animation: floatSparkles 24s linear infinite alternate;
+  opacity:.10;
+}
+@keyframes floatSparkles{
+  0%{ background-position: 5% 10%, 40% 70%, 80% 20%; }
+  100%{ background-position: 10% 0%, 38% 80%, 75% 25%; }
+}
+
+.appname{
+    font-family: 'Irish Grover', cursive;
+  }
+
+
+/* ========== GAME MODES ========== */
+/* ===== MODES — Modern (V4) ===== */
+.modes-section{
+  background:
+    radial-gradient(1200px 520px at 15% -10%, rgba(37,99,235,.06) 0%, transparent 60%),
+    radial-gradient(1000px 520px at 110% 110%, rgba(96,165,250,.08) 0%, transparent 60%),
+    linear-gradient(180deg, var(--surface) 0%, #fff 100%);
+  padding: 110px 20px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow-x: clip;
+}
+
+.modes-section .mode-badge{
+  background: rgba(255,255,255,.7);
+  border: 1px solid rgba(226,232,240,.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 6px 12px;
+  font-family:'Comic Neue', cursive;
+}
+
+.mode-badge{
+  background: rgba(255,255,255,.7);
+  border: 1px solid rgba(226,232,240,.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 6px 12px;
+  font-family:'Comic Neue', cursive;
+}
+.modes-section h2{
+  font-family:'Comic Neue', cursive;
+  font-weight: 800;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+/* Card container with gradient ring */
+.mode-card{
+  position: relative;
+  height:100%;
+  border-radius:18px;
+  padding: 1px;             /* gradient ring carrier */
+  background:
+    linear-gradient(180deg, rgba(226,232,240,.8), rgba(226,232,240,.4)) border-box;
+  overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+/* inner glass layer */
+.mode-inner{
+  background: rgba(255,255,255,.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 17px;
+  border: 1px solid rgba(226,232,240,.7);
+  padding: 22px;
+  height: 100%;
+  box-shadow: 0 12px 28px var(--shadow);
+  position: relative;
+  z-index: 1;
+}
+
+/* animated sheen */
+.mode-card::after{
+  content:"";
+  position:absolute; inset:-1px;
+  background: linear-gradient(120deg,
+    transparent 0%,
+    rgba(59,130,246,.15) 40%,
+    rgba(96,165,250,.2) 50%,
+    transparent 60%);
+  transform: translateX(-120%);
+  transition: transform .8s ease;
+  pointer-events:none;
+}
+.mode-card:hover::after{ transform: translateX(0%); }
+
+/* subtle lift */
+.mode-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 24px 54px rgba(2,6,23,.14);
+}
+
+/* Icon chip */
+.mode-icon{
+  width:56px; height:56px;
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:14px;
+  background: linear-gradient(180deg, #fff, rgba(255,255,255,.6));
+  border:1px solid rgba(226,232,240,.9);
+  color: var(--primary-600);
+  font-size:1.5rem;
+  box-shadow: 0 6px 14px rgba(2,6,23,.06);
+}
+
+/* Title / text */
+.mode-title{ 
+  font-family:'Comic Neue', cursive; 
+  font-size:1.25rem; 
+  margin:.6rem 0 .25rem; 
+  color: var(--text);
+}
+.mode-text{ color: var(--muted); }
+
+/* Media */
+.mode-frame{
+  width:100%; aspect-ratio: 16/9;
+  border-radius:14px; overflow:hidden;
+  border:1px solid rgba(226,232,240,.9);
+  background:#fff;
+  box-shadow: 0 10px 22px rgba(2,6,23,.08);
+}
+.mode-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Tag pills */
+.mode-tags{ display:flex; flex-wrap:wrap; gap:8px; margin:.6rem 0 1rem; }
+.mode-tag{
+  border:1px solid rgba(226,232,240,.9);
+  border-radius:999px;
+  padding:6px 10px; font-size:.85rem;
+  background:#fff;
+}
+
+/* Button row */
+.mode-actions { display:flex; gap:10px; flex-wrap:wrap; }
+
+/* Variant button tweaks */
+.btn-magic.btn-sm, .btn-outline-magic.btn-sm{ padding:8px 14px; border-radius:10px; }
+
+/* Optional tiny tilt (CSS only) */
+.mode-card:hover .mode-frame{ transform: perspective(800px) rotateX(2deg) rotateY(-2deg); transition: transform .25s ease; }
+
+/* ========== CONTACT ========== */
+.contact-section{
+  background: var(--surface);
+  padding:80px 20px;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  position: relative;
+  overflow-x: clip;
+}
+.contact-section h2{
+  font-family:'Comic Neue', cursive;
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight:800; 
+  color: var(--text);
+}
+.contact-badge{
+  background:#fff;
+  color: var(--text);
+  border:1px solid var(--border);
+/*  border-radius:999px;*/
+  border-radius: 10px;
+  padding:6px 12px;
+  font-size:.95rem;
+  font-family:'Comic Neue', cursive;
+  display:inline-block;
+}
+.contact-card{
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:#fff;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+.comic-input{
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#fff;
+  color: var(--text);
+  font-size:1rem;
+}
+.comic-input:focus{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 .2rem rgba(59,130,246,.15);
+}
+.comic-textarea{
+  min-height: 140px;
+  resize: vertical;
+}
+.comic-btn{
+  font-family:'Comic Neue', cursive;
+  font-weight:700;
+  border:2px solid var(--primary-600);
+  background: var(--primary-600);
+  color:#fff;
+  transition: background-color .25s ease, border-color .25s ease, transform .05s ease;
+  border-radius: 999px;
+  padding:.6rem 1.2rem;
+}
+.comic-btn:hover{ background: var(--primary); border-color: var(--primary); }
+.comic-btn:active{ transform: translateY(1px); }
+
+/* success + error messages */
+.form-alert{
+  display:none;
+  border-radius:12px;
+  padding:.85rem 1rem;
+  font-size:.95rem;
+}
+.form-alert.success{
+  display:none; background: #ecfdf5; border:1px solid #10b981; color:#065f46;
+}
+.form-alert.error{
+  display:none; background: #fff7ed; border:1px solid #f97316; color:#7c2d12;
+}
+/* ========== LEARNING FEATURES (WEB CONTENT) ========== */
+/* ========== LEARNING (V2: Stepper) ========== */
+.learning-v2{
+  background:
+    radial-gradient(900px 380px at 15% 0%, var(--surface-2) 0%, transparent 60%),
+    linear-gradient(180deg, #fff 0%, var(--surface) 100%);
+  padding: 96px 20px;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.learnv2-eyebrow{
+  display:inline-block;
+  font-family:'Comic Neue', cursive;
+  font-weight:800;
+  letter-spacing:.2px;
+  color: var(--primary-600);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:6px 12px;
+  font-size:.9rem;
+}
+
+.learnv2-title{
+  font-family:'Comic Neue', cursive;
+  font-weight:800;
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  margin:.5rem 0 .25rem;
+  color: var(--text);
+}
+.learnv2-sub{ color: var(--muted); max-width: 760px; }
+
+/* layout */
+.learnv2-col-media{
+  position:relative;
+}
+.learnv2-sticky{
+  position: sticky;
+  top: 90px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow: 0 10px 24px var(--shadow);
+  background:#fff;
+}
+.learnv2-media{
+  width:100%;
+  aspect-ratio: 16/10;
+  display:block;
+  object-fit:cover;
+}
+
+/* stepper */
+.learnv2-rail{
+  position:relative;
+  padding-left: 44px; /* space for dots */
+}
+.learnv2-rail::before{
+  content:"";
+  position:absolute;
+  left:14px;
+  top:6px;
+  bottom:6px;
+  width:2px;
+  background: linear-gradient(180deg, var(--border), transparent 30%, var(--border) 70%, transparent);
+  opacity:.9;
+}
+
+.learnv2-step{
+  position:relative;
+  padding: 18px 0 28px;
+}
+.learnv2-step:last-child{ padding-bottom: 0; }
+
+.learnv2-dot{
+  position:absolute;
+  left:5px; top: 8px;
+  width:20px; height:20px;
+  border-radius:50%;
+  border:2px solid var(--primary-600);
+  background:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-size:.8rem; font-weight:800; color:var(--primary-600);
+}
+
+/* content */
+.learnv2-kicker{
+  font-weight:800; color: #544CA8; font-size:.95rem; letter-spacing:.2px;
+}
+.learnv2-heading{
+  font-family:'Comic Neue', cursive;
+  font-weight:800; color: var(--text);
+  font-size:1.35rem; margin:.2rem 0 .5rem;
+}
+.learnv2-text{ color: var(--muted); margin-bottom:.75rem; }
+
+.learnv2-list{
+  list-style:none; margin:0; padding:0;
+}
+.learnv2-list li{
+  position:relative; padding-left:22px; margin:.45rem 0; color: var(--text);
+}
+.learnv2-list li::before{
+  content:""; position:absolute; left:0; top:.6rem; width:8px; height:8px;
+  border-radius:50%; background: var(--primary-600);
+}
+
+.learnv2-pills{ display:flex; gap:8px; flex-wrap:wrap; margin-top:.6rem; }
+.learnv2-pill{
+  border:1px solid var(--border); background:#fff; border-radius:999px;
+  padding:6px 10px; font-size:.9rem; display:flex; align-items:center; gap:6px;
+}
+
+/* small helper spacing on mobile */
+@media (max-width: 991.98px){
+  .learnv2-col-media{ margin-bottom: 20px; }
+}
+
+/* alt preview buttons */
+.learnv2-pill-btn{
+  border:1px solid var(--border);
+  background:#fff;
+  border-radius:999px;
+  padding:6px 12px;
+  font-size:.9rem;
+  display:flex; align-items:center; gap:6px;
+  cursor:pointer;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .05s ease;
+}
+.learnv2-pill-btn:hover{ border-color: var(--primary-600); box-shadow: 0 2px 8px var(--shadow); }
+.learnv2-pill-btn:active{ transform: translateY(1px); }
+.learnv2-pill-btn[aria-pressed="true"]{
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 .14rem rgba(37,99,235,.15);
+}
+
+/* active step highlight (optional) */
+.learnv2-step.is-active .learnv2-heading{ color: var(--primary-600); }
+.learnv2-step.is-active .learnv2-dot{
+  background: var(--primary-600);
+  color:#fff;
+}
+/* ===== Modern Timeline (V3) ===== */
+.learn-timeline{
+  background:
+    radial-gradient(1400px 600px at 80% -10%, rgba(37,99,235,.06) 0%, transparent 60%),
+    linear-gradient(180deg, var(--surface) 0%, #fff 100%);
+  padding: 110px 20px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow-x: clip;
+}
+
+/* Header styles aligned to your other sections */
+.learn-timeline .mode-badge{
+  background: rgba(255,255,255,.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-color: rgba(226,232,240,.7);
+}
+
+.learn-timeline h2{
+  font-family:'Comic Neue', cursive;
+  font-weight: 800;
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  letter-spacing: .2px;
+}
+
+/* Center rail with gradient */
+.ltl{
+  position:relative;
+}
+.ltl::before{
+  content:"";
+  position:absolute; top:0; bottom:0; left:50%;
+  width:3px; border-radius:3px;
+  background: linear-gradient(180deg,
+    rgba(37,99,235,.0) 0%,
+    rgba(37,99,235,.25) 20%,
+    rgba(96,165,250,.35) 50%,
+    rgba(37,99,235,.25) 80%,
+    rgba(37,99,235,.0) 100%);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.35) inset,
+    0 10px 30px rgba(37,99,235,.08);
+}
+@media (max-width: 991.98px){
+  .ltl::before{ display:none; }
+}
+
+/* Item spacing + alternating layout on lg+ */
+.ltl-item{ position:relative; padding: 36px 0; }
+@media (min-width: 992px){
+  .ltl-item.ltl-alt .ltl-row{ flex-direction: row-reverse; }
+}
+
+/* Step dot: glass + glow */
+.ltl-dot{
+  position:absolute; top: 8px; left: calc(50% - 18px);
+  width:36px; height:36px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:.95rem; color:#fff;
+  background: linear-gradient(135deg, var(--primary-600), #60a5fa);
+  box-shadow:
+    0 8px 20px rgba(37,99,235,.25),
+    0 0 0 6px rgba(37,99,235,.12);
+  border: 1px solid rgba(255,255,255,.35);
+
+}
+@media (max-width: 991.98px){
+  .ltl-dot{ left: 14px;display: none; }
+}
+
+/* Card: glassy, subtle border, soft shadow */
+.ltl-card{
+  border:1px solid rgba(226,232,240,.7);
+  border-radius:18px;
+  background: rgba(255,255,255,.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 12px 28px var(--shadow);
+  padding:16px;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.ltl-card:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 18px 42px rgba(2,6,23,.12);
+  border-color: rgba(148,163,184,.6);
+}
+
+/* Media frame with subtle border + radius */
+.ltl-frame{
+  width:100%; aspect-ratio: 16 / 9;
+  border-radius:14px; overflow:hidden;
+  border:1px solid rgba(226,232,240,.8);
+  background:#fff;
+}
+.ltl-img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  opacity: 1; transition: opacity .35s ease;
+}
+@media (prefers-reduced-motion: reduce){
+  .ltl-img{ transition: none !important; }
+}
+
+/* Thumbs → compact pills with stronger active state */
+.ltl-thumbs{
+  display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;
+}
+.ltl-thumb{
+  border:1px solid rgba(226,232,240,.9);
+  background:#fff;
+  border-radius:999px;
+  padding:6px 12px; font-size:.9rem; cursor:pointer;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .05s ease, background .15s ease;
+}
+.ltl-thumb:hover{ border-color: var(--primary-600); box-shadow:0 2px 10px rgba(2,6,23,.08); }
+.ltl-thumb:active{ transform: translateY(1px); }
+.ltl-thumb.is-active{
+  background: linear-gradient(135deg, rgba(37,99,235,.12), rgba(96,165,250,.12));
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 .14rem rgba(37,99,235,.15);
+}
+
+/* Text stack */
+.ltl-body{ padding: 4px 2px; }
+.ltl-kicker{
+  font-weight:800; color: #544CA8; font-size:.95rem; letter-spacing:.2px;
+}
+.ltl-heading{
+  font-family:'Comic Neue', cursive; font-weight:800; color:black !important;
+  font-size:1.35rem; margin:.35rem 0 .5rem;
+}
+.ltl-text{ color: var(--muted); margin-bottom:.45rem; }
+.ltl-list{ margin:0; padding-left:1.15rem; }
+.ltl-list li{ margin:.28rem 0; color:var(--text); }
+
+/* When item is in view */
+.ltl-item.is-on .ltl-heading{ color: var(--primary-600); }
+/* ===== MODES — Ultra-modern (V5) ===== */
+.modes-v5{
+  background:
+    radial-gradient(1200px 520px at 10% -10%, rgba(37,99,235,.06) 0%, transparent 60%),
+    radial-gradient(1000px 520px at 110% 110%, rgba(96,165,250,.08) 0%, transparent 60%),
+    linear-gradient(180deg, var(--surface) 0%, #fff 100%);
+  padding: 110px 20px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow-x: clip;
+}
+
+/* header */
+.m5-badge{
+  display:inline-block;
+  background: rgba(255,255,255,.8);
+  border:1px solid rgba(226,232,240,.8);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 6px 12px;
+  font-family:'Comic Neue', cursive;
+}
+.m5-title{
+  font-family:'Comic Neue', cursive;
+  font-weight: 800;
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  letter-spacing:.2px;
+  color: var(--text);
+  margin-bottom: .4rem;
+}
+.m5-sub{
+  color: var(--muted);
+  max-width: 720px;
+}
+
+/* grid */
+.m5-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  margin-top: 28px;
+}
+@media (min-width: 992px){
+  .m5-grid{ grid-template-columns: 1fr 1fr; gap: 26px; }
+}
+
+/* card */
+.m5-card{
+  position:relative;
+  display:grid;
+  grid-template-columns: 1fr;
+  border-radius: 18px;
+  padding: 1px; /* gradient ring container */
+  background:
+    linear-gradient(180deg, rgba(226,232,240,.9), rgba(226,232,240,.5)) border-box;
+  overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.m5-card::after{ /* sheen */
+  content:"";
+  position:absolute; inset:-1px;
+  background: linear-gradient(120deg, transparent 0%, rgba(59,130,246,.16) 45%, rgba(96,165,250,.2) 55%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform .8s ease;
+  pointer-events:none;
+}
+.m5-card:hover{ transform: translateY(-6px); box-shadow: 0 28px 64px rgba(2,6,23,.12); }
+.m5-card:hover::after{ transform: translateX(0%); }
+
+/* inner layers */
+.m5-media{
+  aspect-ratio: 16/9;
+  overflow:hidden;
+  border-radius: 17px 17px 10px 10px;
+  border: 1px solid rgba(226,232,240,.85);
+  background:#fff;
+}
+.m5-media img{
+  width:100%; height:100%; display:block; object-fit:cover;
+  transition: transform .5s ease;
+}
+.m5-card:hover .m5-media img{ transform: scale(1.04); }
+
+.m5-body{
+  background: rgba(255,255,255,.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border:1px solid rgba(226,232,240,.8);
+  border-top: none;
+  padding: 18px;
+  border-radius: 10px 10px 17px 17px;
+}
+
+/* text */
+.m5-chip{
+  display:inline-block;
+  font-family:'Comic Neue', cursive;
+  font-weight: 800;
+  letter-spacing:.2px;
+  color: var(--primary-600);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:6px 10px;
+  font-size:.85rem;
+}
+.m5-card-title{
+  font-family:'Comic Neue', cursive;
+  font-size:1.25rem;
+  font-weight:800;
+  margin:.55rem 0 .25rem;
+  color: var(--text);
+}
+.m5-text{ color: var(--muted); margin-bottom:.6rem; }
+
+/* tags */
+.m5-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:.6rem; }
+.m5-tag{
+  display:inline-flex; align-items:center; gap:6px;
+  border:1px solid rgba(226,232,240,.9);
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:.9rem;
+  background:#fff;
+}
+
+/* actions */
+.m5-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+
+/* nicer hover focus outlines on buttons already defined */
+.btn-magic.btn-sm, .btn-outline-magic.btn-sm{ padding:8px 14px; border-radius:10px; }
+
+
+/* ===== MODES — Stripe Layout (No hover, no cards) ===== */
+.modes-stripes{
+  position: relative;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(1200px 520px at 12% -8%, rgba(37,99,235,.06) 0%, transparent 60%),
+    linear-gradient(180deg, var(--surface) 0%, #fff 100%);
+  overflow-x: clip;
+    padding-top: 110px !important;
+  padding-bottom: 100px !important;
+}
+
+/* Header */
+.mstr-badge{
+  display:inline-block;
+  background: rgba(255,255,255,.85);
+  border:1px solid rgba(226,232,240,.9);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 6px 12px;
+  font-family:'Comic Neue', cursive;
+}
+.mstr-title{
+  font-family:'Comic Neue', cursive;
+  font-weight:800;
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  letter-spacing:.2px; color: var(--text); margin-bottom:.4rem;
+}
+.mstr-sub{ color: var(--muted); max-width: 720px; }
+
+/* Stripes */
+.mstr-stripe{
+  padding: 56px 0;
+  position: relative;
+  border-top: 1px solid var(--border);
+}
+.mstr-blue{
+  background:
+    radial-gradient(1200px 520px at 0% 0%, rgba(37,99,235,.05) 0%, transparent 60%),
+    linear-gradient(180deg, #fff 0%, var(--surface) 100%);
+}
+.mstr-sky{
+  background:
+    radial-gradient(1200px 520px at 100% 0%, rgba(96,165,250,.08) 0%, transparent 60%),
+    linear-gradient(180deg, var(--surface) 0%, #fff 100%);
+}
+
+/* Grid rows */
+.mstr-row{
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 36px;
+  align-items: center;
+}
+.mstr-row.mstr-reverse{
+  grid-template-columns: .95fr 1.05fr;
+}
+@media (max-width: 991.98px){
+  .mstr-row,
+  .mstr-row.mstr-reverse{
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* Columns */
+.mstr-col{ width: 100%; }
+
+/* Text cluster */
+.mstr-eyebrow{
+  display:inline-block;
+  font-family:'Comic Neue', cursive;
+  font-weight:800;
+  letter-spacing:.2px;
+  color: var(--primary-600);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:6px 10px;
+  font-size:.9rem;
+}
+.mstr-h3{
+  font-family:'Comic Neue', cursive;
+  font-weight:800;
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  color: var(--text);
+  margin:.6rem 0 .4rem;
+}
+.mstr-body{
+  color: var(--muted);
+  max-width: 48ch;
+  margin-bottom: .8rem;
+}
+
+/* Feature list */
+.mstr-list{
+  margin: 0 0 .9rem 0;
+  padding: 0;
+  list-style: none;
+}
+.mstr-list li{
+  position: relative;
+  padding-left: 22px;
+  margin: .35rem 0;
+  color: var(--text);
+}
+.mstr-list li::before{
+  content:"";
+  position:absolute; left:0; top:.6rem;
+  width: 8px; height: 8px; border-radius:50%;
+  background: var(--primary-600);
+}
+
+/* Actions */
+.mstr-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+
+/* Media frame (no hover animation) */
+.mstr-media{ width:100%; }
+.mstr-frame{
+  margin:0;
+  width:100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow:hidden;
+  border:1px solid rgba(226,232,240,.9);
+  background:#fff;
+  box-shadow: 0 10px 24px var(--shadow);
+}
+.mstr-frame img{
+  width:100%; height:100%;
+  display:block; object-fit: cover;
+}
+
+/* Compact spacing on small screens */
+@media (max-width: 575.98px){
+  .mstr-body{ max-width: 100%; }
+}
+/* ===== Modes (Stripes) — Layout & Margin Polish ===== */
+#mode{
+
+}
+/* cap line-length + center the header container a bit tighter */
+#modes .container:first-child{
+  max-width: 1120px;
+}
+
+/* room above/below title copy */
+#modes .mstr-title{ margin-bottom: .6rem; }
+#modes .mstr-sub{
+  margin: 0 auto 2rem;
+  max-width: 720px;
+}
+
+/* stripe vertical rhythm */
+#modes .mstr-stripe{
+  padding: 72px 0;                /* desktop breathing space */
+}
+#modes .mstr-stripe + .mstr-stripe{
+  border-top: 1px solid var(--border);
+}
+
+/* grid balance: make text breathe a touch more on wide screens */
+#modes .mstr-row{
+  grid-template-columns: 1.1fr 0.9fr;     /* text : media */
+  gap: 48px;                               /* larger gutter */
+  align-items: center;
+}
+#modes .mstr-row.mstr-reverse{
+  grid-template-columns: 0.9fr 1.1fr;     /* media : text */
+}
+
+/* constrain text measure so lists read cleanly */
+#modes .mstr-text{ max-width: 56ch; }
+
+/* media: slightly taller, softer frame */
+#modes .mstr-frame{
+  aspect-ratio: 5 / 3;                     /* more presence than 16:9 */
+  border-radius: 18px;
+  box-shadow: 0 14px 34px var(--shadow);
+}
+
+/* lists: tighten a bit, add top margin */
+#modes .mstr-list{ margin-top: .6rem; margin-bottom: 1.1rem; }
+#modes .mstr-list li{ margin: .28rem 0; }
+
+/* actions: consistent spacing from text */
+#modes .mstr-actions{ gap: 12px; }
+#modes .mstr-actions .btn{ padding-inline: 16px; }
+
+/* --- Responsive tuning --- */
+@media (max-width: 1199.98px){
+  #modes .mstr-row{ gap: 36px; }
+  #modes .mstr-frame{ aspect-ratio: 16 / 9; }  /* back to standard on md/lg */
+}
+
+@media (max-width: 991.98px){
+  #modes .mstr-row,
+  #modes .mstr-row.mstr-reverse{ grid-template-columns: 1fr; gap: 22px; }
+  #modes .mstr-text{ max-width: 100%; }
+  #modes .mstr-stripe{ padding: 56px 0; }
+}
+
+@media (max-width: 575.98px){
+  #modes .mstr-stripe{ padding: 40px 0; }
+  #modes .mstr-sub{ margin-bottom: 1.4rem; }
+  #modes .mstr-actions{ gap: 10px; }
+}
+#modes .mstr-stripe { border-top: 0 !important; }
+#modes .mstr-stripe + .mstr-stripe { border-top: 0 !important; }
+/* ===== Global mobile fixes ===== */
+img, video { max-width: 100%; height: auto; }
+body { overflow-x: hidden; }
+
+/* Hero tweaks */
+@media (max-width: 575.98px){
+  .hero{ padding: 64px 16px 28px; }
+  .hero h1{ font-size: clamp(1.8rem, 7vw, 2.2rem); }
+  .hero p{ font-size: 1rem; margin-bottom: 1.2rem; }
+  .app-preview-video{ width: 100% !important; border-radius: 12px !important; }
+  /* simplify background effects on tiny screens (performance + clarity) */
+  .blob, .lines, .halftone-layer{ opacity: .06; }
+}
+
+/* About section */
+@media (max-width: 575.98px){
+  .about-section{ padding: 56px 16px; }
+  .about-section h2{ font-size: 1.4rem; }
+  .about-section p{ text-align: left; font-size: 1rem; }
+  .about-frame{ max-width: 100%; aspect-ratio: 16 / 9; }
+  .custom-bullets li{ margin-bottom: 8px; }
+}
+
+/* Learning timeline (images + rail align + spacing) */
+@media (max-width: 991.98px){
+  .ltl-item{ padding: 24px 0; }
+  .ltl-frame{ aspect-ratio: 16/9; }
+  .ltl-body{ padding: 2px 0; }
+}
+@media (max-width: 575.98px){
+  .learn-timeline{ padding: 72px 16px; }
+  .learn-timeline h2{ font-size: 1.6rem; }
+  .ltl::before{ left: 24px; }
+  .ltl-dot{ left: 8px; transform: translateX(0); }
+  .ltl-thumbs{ gap: 8px; }
+  .ltl-thumb{ padding: 6px 10px; font-size: .85rem; }
+  .ltl-list{ padding-left: 1rem; }
+  .ltl-list li{ margin: .22rem 0; }
+}
+
+/* Modes – stripes (no top lines, better stack & media sizing) */
+#modes .mstr-stripe { border-top: 0 !important; }
+#modes .mstr-stripe + .mstr-stripe { border-top: 0 !important; }
+
+@media (max-width: 991.98px){
+  .modes-stripes{ padding-top: 72px !important; padding-bottom: 72px !important; }
+  #modes .mstr-row, #modes .mstr-row.mstr-reverse{
+    grid-template-columns: 1fr; gap: 20px;
+  }
+  #modes .mstr-text{ max-width: 100%; }
+  #modes .mstr-frame{ aspect-ratio: 16/9; border-radius: 14px; }
+  #modes .mstr-title{ font-size: 1.6rem; }
+  #modes .mstr-sub{ margin: 0 auto 1.2rem; }
+  .mstr-actions{ gap: 10px; }
+  /* buttons wrap nicely without forcing full-width */
+  .mstr-actions .btn{ flex: 1 1 auto; min-width: 140px; }
+}
+@media (max-width: 575.98px){
+  .mstr-h3{ font-size: 1.25rem; margin-bottom: .35rem; }
+  .mstr-body{ font-size: .98rem; margin-bottom: .7rem; }
+  #modes .mstr-stripe{ padding: 40px 0; }
+}
+
+/* Contact section (consistent inputs + spacing) */
+@media (max-width: 575.98px){
+  .contact-section{ padding: 64px 16px; }
+  .contact-card{ padding: 18px !important; }
+  .comic-textarea{ min-height: 120px; }
+}
+
+/* Disabled fields visual during send */
+.comic-input:disabled,
+.comic-textarea:disabled,
+.form-check-input:disabled{
+  background-color: #f1f5f9;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; }
+}
+/* Consistent media size on the right for both stripes */
+.mode-media-frame{
+  width: 100%;
+  max-width: 850px;     /* adjust once to scale both */
+  aspect-ratio: 16 / 9; /* identical ratio */
+}
+
+.mode-media-frame > img,
+.mode-media-frame > video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Push the frame to the right edge on large screens */
+@media (min-width: 992px){
+  .ms-lg-auto{ margin-left: auto !important; }
+}
+
+  </style>
+</head>
+  <body>
+  <section class="hero position-relative overflow-hidden">
+    <div class="comic-bg">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+
+      <div class="lines"></div>
+
+      <div class="halftone-layer"></div>
+    </div>
+
+    <h1>
+      <span class="word">Learn Braille with</span>
+      <span class="word highlight appname">Braille<span style="color:black;">Play</span></span>
+    </h1>
+
+    <p>
+      BraillePlay makes learning Braille fun and accessible with interactive devices, web lessons, 
+      and engaging games that inspire empathy and understanding.
+    </p>
+
+    <div class="d-flex gap-3 flex-wrap justify-content-center mb-4" >
+      <a href="#about" class="btn btn-magic">Learn More</a>
+
+      <a href="/generate" class="btn btn-outline-magic">Start Learning</a>
+    </div>
+
+  <video
+    class="app-preview-video"
+    style="width:50%; z-index: 99999; border-radius: 8px;"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+  >
+    <source src="video/hero2.mp4" type="video/mp4">
+  </video>
+  </section>
+
+<section id="about" class="about-section">
+    <div class="floating-sparkles"></div>
+
+  <div class="container">
+  
+      <div class="row">
+        <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
+          <div class="about-frame">
+            <img src="img/device.png" alt="Braille Input Device" class="about-img">
+          </div>
+        </div>
+        <div class="col-md-6 px-md-5" data-aos="fade-left" data-aos-duration="1000">
+<h2 class="fw-bold mt-4 mt-md-0">
+  Introducing <span class="appname"><span style="color:#2563eb;">Braille</span><span style="color:black;">Play</span></span>
+</h2>
+          <p>
+            This project focuses on creating a <strong>2x4 Braille input device</strong> and an 
+            interactive web platform to make Braille learning accessible and engaging 
+            for non-disabled students. By combining tactile hardware with digital content, 
+            it bridges the gap between visually impaired and sighted individuals.
+          </p>
+          <ul class="custom-bullets">
+            <li>Hands-on practice with a custom Braille input device.</li>
+            <li>Step-by-step Braille lessons with interactive exercises.</li>
+            <li>Engaging games to reinforce learning and make it fun.</li>
+            <li>Progress tracking with scores and achievements.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Why It Matters (Alternate order on desktop) -->
+      <div class="row align-items-center mt-md-6">
+        <!-- Image first on mobile, second on desktop -->
+        <div class="col-md-6 order-md-2" data-aos="fade-left" data-aos-duration="1000">
+          <div class="about-frame">
+            <img src="img/about2.jpg" alt="Braille Learning Platform" class="about-img">
+          </div>
+        </div>
+
+        <!-- Text second on mobile, first on desktop -->
+        <div class="col-md-6 order-md-1" data-aos="fade-right" data-aos-duration="1000">
+          <h2 class="fw-bold mt-4 mt-md-0">Why It Matters</h2>
+          <p>
+            Braille is an essential communication tool for visually impaired individuals, 
+            yet it remains unfamiliar to most sighted people. This lack of understanding 
+            creates barriers to inclusion and accessibility.
+          </p>
+          <ul class="custom-bullets">
+            <li>Promotes awareness and empathy through hands-on learning.</li>
+            <li>Builds a bridge between sighted and visually impaired communities.</li>
+            <li>Encourages inclusive education with fun and interactive tools.</li>
+          </ul>
+          <p>
+            By engaging students in a meaningful way, this project helps foster a more 
+            inclusive society where everyone can appreciate the importance of accessible communication.
+          </p>
+        </div>
+      </div>
+
+
+  </div>
+</section>
+<section id="learning" class="learn-timeline">
+  <div class="container">
+    <div class="text-center mb-4" data-aos="fade-down">
+      <span class="mode-badge"><i class="bi bi-journal-text me-1"></i> Braille Learning </span>
+    </div>
+
+    <h2 class="text-center fw-bold mb-4" data-aos="fade-up" data-aos-delay="50">
+      Learn Braille—Step by Step
+    </h2>
+
+    <p class="text-muted mx-auto mb-5 text-center" style="max-width:760px;"
+       data-aos="fade-up" data-aos-delay="120">
+      Follow a guided path—from the Braille alphabet to real-world writing—then lock it in with practical exercises and puzzles.
+    </p>
+
+    <div class="ltl"><!-- timeline rail -->
+
+      <!-- STEP 1 -->
+      <article class="ltl-item" data-default="/static/learning/basics-1.jpg" data-aos="fade-up" data-aos-delay="80">
+        <div class="ltl-dot" data-aos="zoom-in" data-aos-delay="0">1</div>
+        <div class="row align-items-center g-4 ltl-row">
+          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="120">
+            <div class="ltl-card">
+              <div class="ltl-frame" data-aos="fade-up" data-aos-delay="180">
+                <img class="ltl-img" src="img/learning/learn1.gif" alt="Braille basics preview">
+              </div>
+              <div class="ltl-thumbs" data-aos="fade-up" data-aos-delay="220">
+                <button type="button" class="ltl-thumb is-active" data-src="img/learning/learning1.gif">Alphabet</button>
+                <button type="button" class="ltl-thumb" data-src="img/learning/learning2.gif">Numbers</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-left" data-aos-delay="160">
+            <div class="ltl-body ms-lg-4">
+              <div class="ltl-kicker"><i class="bi bi-lightbulb"></i> Basics</div>
+              <h3 class="ltl-heading"><span class="mstr-h3">Start with the building blocks</span></h3>
+              <p class="ltl-text">
+                Learn the Braille alphabet, numbers, and punctuation with tactile mapping and visual guidance.
+              </p>
+              <ul class="ltl-list" data-aos="fade-up" data-aos-delay="220">
+                <li><strong>Alphabet:</strong> Cell patterns & quick recognition.</li>
+                <li><strong>Numbers & Punctuation:</strong> Symbols for everyday reading.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- STEP 2 -->
+      <article class="ltl-item ltl-alt" data-default="/static/learning/exercises-1.jpg" data-aos="fade-up" data-aos-delay="120">
+        <div class="ltl-dot" data-aos="zoom-in" data-aos-delay="0">2</div>
+        <div class="row align-items-center g-4 ltl-row">
+          <div class="col-lg-6" data-aos="fade-left" data-aos-delay="160">
+            <div class="ltl-card">
+              <div class="ltl-frame" data-aos="fade-up" data-aos-delay="200">
+                <img class="ltl-img" src="/static/learning/exercises-1.jpg" alt="Practice & puzzles preview">
+              </div>
+              <div class="ltl-thumbs" data-aos="fade-up" data-aos-delay="240">
+                <button type="button" class="ltl-thumb is-active" data-src="img/learning/learning4.gif">Math</button>
+                <button type="button" class="ltl-thumb" data-src="img/learning/learning3.gif">Image</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
+            <div class="ltl-body">
+              <div class="ltl-kicker"><i class="bi bi-controller"></i> Practice & Problem Solving</div>
+              <h3 class="ltl-heading"><span class="mstr-h3">Make it stick with practice</span></h3>
+              <p class="ltl-text">Hands-on tasks that reinforce skills and build confidence—fun and effective.</p>
+              <ul class="ltl-list" data-aos="fade-up" data-aos-delay="260">
+                <li><strong>Math:</strong> Solve arithmetic using Braille numerals.</li>
+                <li><strong>Word Input:</strong> Type words & sentences on the 2×4 device.</li>
+                <li><strong>Puzzles:</strong> Apply knowledge to solve clever challenges.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /.ltl -->
+  </div>
+</section>
+
+<section id="modes" class="modes-stripes">
+  <div class="container">
+    <div class="text-center mb-3" data-aos="fade-down" data-aos-duration="700">
+      <span class="mstr-badge"><i class="bi bi-controller me-1"></i> Game Modes</span>
+    </div>
+
+    <h2 class="mstr-title text-center" data-aos="fade-up" data-aos-duration="800">
+      Play to Learn — Fast, Fun, Focused
+    </h2>
+    <p class="mstr-sub mx-auto text-center" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
+      Build speed and accuracy, test recognition, and cement skills with focused challenges.
+    </p>
+  </div>
+
+  <!-- Stripe 1 -->
+  <!-- Stripe 1 -->
+  <div class="mstr-stripe mstr-blue" data-aos="fade-up" data-aos-duration="800">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Text (left) -->
+        <div class="col-lg-6">
+          <div class="mstr-eyebrow">Speed • Accuracy</div>
+          <h3 class="mstr-h3">Typing Game</h3>
+          <p class="mstr-body">
+            Enter Braille cells quickly and precisely on the 2×4 device. Adaptive levels track your WPM and accuracy as you improve.
+          </p>
+          <ul class="mstr-list">
+            <li>WPM targets with gradual difficulty ramps</li>
+            <li>Immediate feedback on errors and timing</li>
+            <li>Session summaries and personal bests</li>
+          </ul>
+          <div class="mstr-actions">
+            <a href="/generate?mode=typing" class="btn btn-magic btn-sm">Play Typing</a>
+            <a href="#learning" class="btn btn-outline-magic btn-sm">View Lessons</a>
+          </div>
+        </div>
+
+        <!-- Media (right) -->
+        <div class="col-lg-6">
+          <figure class="mstr-frame mode-media-frame ms-lg-auto">
+            <img src="img/game/typing2.gif" alt="Typing Game preview">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stripe 2 -->
+  <div class="mstr-stripe mstr-sky" data-aos="fade-up" data-aos-duration="800" data-aos-delay="120">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Text (left) -->
+        <div class="col-lg-6">
+          <div class="mstr-eyebrow">Puzzles • Words</div>
+          <h3 class="mstr-h3">Braille Sprint</h3>
+          <p class="mstr-body">
+            Form words and sentences under time pressure. Unlock themed challenges that deepen recognition and recall.
+          </p>
+          <ul class="mstr-list">
+            <li>Timed rounds with streak multipliers</li>
+            <li>Theme packs (animals, school, daily life)</li>
+            <li>Badges, milestones, and shareable scores</li>
+          </ul>
+          <div class="mstr-actions">
+            <a href="/generate?mode=board" class="btn btn-magic btn-sm">Play Sprint</a>
+            <a href="#learning" class="btn btn-outline-magic btn-sm">Practice First</a>
+          </div>
+        </div>
+
+        <!-- Media (right) -->
+        <div class="col-lg-6">
+          <figure class="mstr-frame mode-media-frame ms-lg-auto">
+            <img src="img/game/sprint2.png" alt="Braille Sprint Game preview">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<section id="demo" class="modes-stripes" style="padding-top:110px;padding-bottom:100px;">
+  <div class="container">
+    <div class="text-center mb-3" data-aos="fade-down" data-aos-duration="700">
+      <span class="mstr-badge"><i class="bi bi-camera-video me-1"></i> Demo</span>
+    </div>
+
+    <h2 class="mstr-title text-center" data-aos="fade-up" data-aos-duration="800">
+      See BraillePlay in Action
+    </h2>
+    <p class="mstr-sub mx-auto text-center" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
+      A quick walkthrough of the 2×4 Braille device and the learning flow—lessons, practice, and games.
+    </p>
+  </div>
+
+  <div class="container" data-aos="zoom-in" data-aos-delay="150" data-aos-duration="900">
+    <figure class="mstr-frame" style="margin:0 auto; max-width:800px;">
+      <video
+        class="demo-video"
+        controls
+        playsinline
+        preload="metadata"
+        poster=""
+      >
+        <source src="video/demo_video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </figure>
+
+  </div>
+</section>
+
+
+<section id="contact" class="contact-section">
+  <div class="floating-sparkles"></div>
+
+  <div class="container">
+    <div class="text-center" data-aos="fade-down" data-aos-duration="800">
+      <span class="contact-badge">
+        <i class="bi bi-people-fill me-1"></i> Get in Touch
+      </span>
+    </div>
+
+    <h2 class="text-center fw-bold mt-3 mb-3" data-aos="fade-up" data-aos-duration="800">
+      Partner with <span class="appname"><span style="color:#2563eb;">Braille</span><span style="color:black;">Play</span></span>
+    </h2>
+
+    <p class="text-muted mx-auto mb-5 text-center" style="max-width: 680px;" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
+      Educator, developer, or nonprofit? We’d love to collaborate on inclusive, AI-powered learning. 
+      Send us a note and we’ll get back to you.
+    </p>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8" data-aos="zoom-in" data-aos-delay="150" data-aos-duration="900">
+        <div class="contact-card p-4 p-md-5">
+          <!-- Alerts -->
+          <div id="contactSuccess" class="form-alert success mb-3" role="alert" aria-live="polite">
+            Thanks! Your message has been sent. We’ll be in touch soon.
+          </div>
+          <div id="contactError" class="form-alert error mb-3" role="alert" aria-live="polite">
+            Oops—something went wrong. Please try again.
+          </div>
+
+          <form id="contactForm" action="/contact" method="POST" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="name" class="form-label">Your Name</label>
+                <input id="name" name="name" type="text" class="form-control comic-input" required aria-required="true" autocomplete="name" />
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Your Email</label>
+                <input id="email" name="email" type="email" class="form-control comic-input" required aria-required="true" autocomplete="email" />
+              </div>
+              <div class="col-12">
+                <label for="subject" class="form-label">Subject (optional)</label>
+                <input id="subject" name="subject" type="text" class="form-control comic-input" />
+              </div>
+              <div class="col-12">
+                <label for="message" class="form-label">Message</label>
+                <textarea id="message" name="message" class="form-control comic-input comic-textarea" required aria-required="true" placeholder="Tell us about your idea, goals, or timeline..."></textarea>
+              </div>
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="yes" id="consent" required aria-required="true">
+                  <label class="form-check-label" for="consent">
+                    I agree to be contacted about my inquiry.
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end mt-4">
+              <button id="submitButton" type="submit" class="comic-btn">
+                <span id="submitText">Send Message</span>
+                <span id="spinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- Success Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:16px;">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="contactModalLabel">Message sent ✨</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-muted">
+        Thanks! We’ve received your message and will get back to you soon.
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-magic" data-bs-dismiss="modal">Great</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    once: true,                 // animate once per element
+    duration: 700,              // base duration
+    easing: 'ease-out-quart',
+    offset: 80,                 // start a bit before the element hits center
+    anchorPlacement: 'top-center'
+  });
+</script>
+
+<script>
+(function () {
+  // --- helpers ---
+  function fadeSwap(imgEl, newSrc, newAlt) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) { imgEl.src = newSrc; imgEl.alt = newAlt; return; }
+
+    // Preload, then fade-out -> swap -> fade-in
+    const pre = new Image();
+    pre.onload = () => {
+      imgEl.style.opacity = '0';
+      // wait for fade-out to start, then swap
+      setTimeout(() => {
+        imgEl.src = newSrc;
+        imgEl.alt = newAlt;
+        // ensure layout has applied the new src before fade-in
+        requestAnimationFrame(() => { imgEl.style.opacity = '1'; });
+      }, 150);
+    };
+    pre.src = newSrc;
+  }
+
+  function swapTo(btn, article) {
+    const imgEl = article.querySelector('.ltl-img');
+    if (!imgEl || !btn) return;
+    // active state
+    article.querySelectorAll('.ltl-thumb').forEach(b => {
+      b.classList.remove('is-active');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('is-active');
+    btn.setAttribute('aria-pressed', 'true');
+
+    const label = (btn.textContent || 'Preview').trim();
+    fadeSwap(imgEl, btn.dataset.src, label + ' preview');
+  }
+
+  function nextThumb(article) {
+    const thumbs = Array.from(article.querySelectorAll('.ltl-thumb'));
+    if (!thumbs.length) return null;
+    const activeIdx = Math.max(0, thumbs.findIndex(t => t.classList.contains('is-active')));
+    return thumbs[(activeIdx + 1) % thumbs.length];
+  }
+
+  // Preload everything once
+  document.querySelectorAll('.ltl-thumb[data-src]').forEach(b => { const i=new Image(); i.src=b.dataset.src; });
+
+  // Manual click
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.ltl-thumb');
+    if (!btn) return;
+    const article = btn.closest('.ltl-item');
+    if (!article) return;
+    swapTo(btn, article);
+
+    // reset rotator with short grace period
+    const state = rotators.get(article);
+    if (state) {
+      clearTimeout(state.t);
+      state.nextDelay = 10500; // 4.5s grace after click
+      schedule(article);
+    }
+  });
+
+  // Auto-rotator per article
+  const rotators = new Map();
+
+  function schedule(article) {
+    const state = rotators.get(article);
+    if (!state || !state.active) return;
+    const delay = state.nextDelay ?? (10000 + Math.random()*1000); // 3–4s
+    state.nextDelay = null;
+    state.t = setTimeout(() => {
+      if (state.visible) {
+        const btn = nextThumb(article);
+        if (btn) swapTo(btn, article);
+      }
+      schedule(article);
+    }, delay);
+  }
+
+  // Pause off-screen
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const article = entry.target;
+      const state = rotators.get(article);
+      if (!state) return;
+      state.visible = entry.isIntersecting;
+      article.classList.toggle('is-on', entry.isIntersecting);
+      clearTimeout(state.t);
+      if (entry.isIntersecting) {
+        const active = article.querySelector('.ltl-thumb.is-active') || article.querySelector('.ltl-thumb');
+        if (active) swapTo(active, article);
+        schedule(article);
+      }
+    });
+  }, { rootMargin: '-20% 0px -20% 0px', threshold: 0.2 });
+
+  // Init each step
+  document.querySelectorAll('.ltl-item').forEach(article => {
+    const active = article.querySelector('.ltl-thumb.is-active') || article.querySelector('.ltl-thumb');
+    if (active) swapTo(active, article);
+    rotators.set(article, { t: null, visible: false, active: true, nextDelay: null });
+    io.observe(article);
+  });
+
+  // Tab visibility: pause/resume
+  document.addEventListener('visibilitychange', () => {
+    rotators.forEach((state, article) => {
+      clearTimeout(state.t);
+      if (!document.hidden && state.visible) schedule(article);
+    });
+  });
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+  // ---- EmailJS setup ----
+  // Initialize with your public key (already present in your snippet)
+  emailjs.init("27QgP0uQsaxgso0ls");
+
+  // ---- DOM hooks ----
+  const form        = document.getElementById("contactForm");
+  const btn         = document.getElementById("submitButton");
+  const spinner     = document.getElementById("spinner");
+  const submitText  = document.getElementById("submitText");
+  const successBox  = document.getElementById("contactSuccess");
+  const errorBox    = document.getElementById("contactError");
+
+  // Utility: toggle loading state
+  function setLoading(isLoading){
+    // button
+    btn.disabled = isLoading;
+    spinner.classList.toggle("d-none", !isLoading);
+    submitText.textContent = isLoading ? "Sending..." : "Send Message";
+
+    // lock/unlock all form fields while sending
+    Array.from(form.elements).forEach(el => { el.disabled = isLoading; });
+
+    // hide alerts when retrying
+    successBox.style.display = "none";
+    errorBox.style.display   = "none";
+  }
+
+  // Utility: show Bootstrap modal
+  function showSuccessModal(){
+    if (window.bootstrap && document.getElementById("contactModal")) {
+      const modal = new bootstrap.Modal(document.getElementById("contactModal"));
+      modal.show();
+    }
+  }
+
+  // ---- Submit handler ----
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    // built-in validation first
+    if (!form.checkValidity()) {
+      form.classList.add("was-validated");
+      return;
+    }
+
+    setLoading(true);
+
+    // gather values
+    const name    = document.getElementById("name").value.trim();
+    const email   = document.getElementById("email").value.trim();
+    const subject = document.getElementById("subject").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    // send via EmailJS
+    emailjs.send("service_rglla1a", "template_19ra51l", {
+      from_name: name,
+      subject: subject || "(No subject)",
+      user_email: email,
+      message: message,
+      to_email: "brailleplay87@gmail.com"
+    })
+    .then(() => {
+      setLoading(false);
+      form.reset();
+      form.classList.remove("was-validated");
+      // inline banner
+      successBox.style.display = "block";
+      // modal popup
+      showSuccessModal();
+    })
+    .catch((error) => {
+      console.error(error);
+      setLoading(false);
+      errorBox.style.display = "block";
+    });
+  });
+</script>
+
+
+</body>
